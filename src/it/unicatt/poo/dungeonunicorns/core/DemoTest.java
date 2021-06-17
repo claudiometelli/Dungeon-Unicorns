@@ -10,6 +10,9 @@ public class DemoTest {
 		player.placeEntity(room, 3, 2);
 		monster.placeEntity(room, 4, 2);
 		System.out.println(room.printRoom() + player.toString() + "\n" + monster.toString());
+		player.moveUp();
+		System.out.println(room.printRoom() + player.toString() + "\n" + monster.toString());
+		player.moveDown();
 		player.attack(monster);
 		System.out.println(room.printRoom() + player.toString() + "\n" + monster.toString());
 	}

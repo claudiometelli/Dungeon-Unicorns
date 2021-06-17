@@ -24,7 +24,7 @@ public class DesktopLauncher {
 		try {
 			config.title = IOUtils.getAttributeFromConfigFile(configFile, "Title");;
 		    config.width = IOUtils.getIntegerAttributeFromConfigFile(configFile, "Width");
-		    config.height = IOUtils.getIntegerAttributeFromConfigFile(configFile, "Height");
+			config.height = IOUtils.getIntegerAttributeFromConfigFile(configFile, "Height");
 		} catch (AttributeNotSpecifiedException ansException) {
 			System.err.println(ansException.getMessage());
 		}
