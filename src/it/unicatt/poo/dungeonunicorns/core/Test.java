@@ -1,13 +1,23 @@
 package it.unicatt.poo.dungeonunicorns.core;
 
-import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Test implements ApplicationListener {
+import it.unicatt.poo.dungeonunicorns.graphics.EnterMenuScreen;
+
+
+public class Test extends Game {
+	
+	private SpriteBatch batch;
+	private BitmapFont font;
 
 	@Override
 	public void create() {
-		// TODO Auto-generated method stub
-
+		batch = new SpriteBatch();
+		font = new BitmapFont();
+		this.setScreen(new EnterMenuScreen(this));
 	}
 
 	@Override
@@ -18,8 +28,7 @@ public class Test implements ApplicationListener {
 
 	@Override
 	public void render() {
-		// TODO Auto-generated method stub
-
+		super.render();
 	}
 
 	@Override
@@ -36,8 +45,16 @@ public class Test implements ApplicationListener {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-
+		batch.dispose();
+		font.dispose();
+	}
+	
+	public SpriteBatch getBatch() {
+		return batch;
+	}
+	
+	public BitmapFont getFont() {
+		return font;
 	}
 
 }

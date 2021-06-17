@@ -5,9 +5,21 @@ import java.util.List;
 
 import it.unicatt.poo.dungeonunicorns.beans.Coordinate;
 
+/**
+ * A class which represent a room of a dungeon in the game
+ * A room is always represented like a Rectangle with width and height
+ * 
+ * 
+ * @author claudiometelli
+ * @version 1.0.0
+ *
+ */
 public abstract class Room {
-	
+	/**
+	 * The set of coordinates used to fill the room
+	 */
 	private Coordinate[] coordinates;
+	
 	private int width;
 	private int height;
 	

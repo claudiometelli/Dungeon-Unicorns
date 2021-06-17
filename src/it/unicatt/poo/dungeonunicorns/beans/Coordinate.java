@@ -4,6 +4,8 @@ import it.unicatt.poo.dungeonunicorns.core.Entity;
 
 /**
  * A class which represent a coordinate, the minimum unity in the game
+ * This class is used to make rooms
+ * Every unity in a room is a coordinate
  * 
  * @author claudiometelli
  * @version 1.0.0
@@ -38,12 +40,6 @@ public class Coordinate {
 	public Coordinate(int x, int y) {
 		this.x = x;
 		this.y = y;
-	}
-	
-	public Coordinate(int x, int y, boolean border) {
-		this.x = x;
-		this.y = y;
-		this.border = border;
 	}
 	
 	public int getX() {
