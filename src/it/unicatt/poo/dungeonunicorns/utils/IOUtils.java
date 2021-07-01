@@ -115,4 +115,14 @@ public class IOUtils {
 		return result;
 	}
 	
+	public static Float getInstantFloatAttributeFromConfigFile(Path file, String attribute) {
+		Float result = null;
+		try {
+			result = getFloatAttributeFromConfigFile(file, attribute);
+		} catch(AttributeNotSpecifiedException e) {
+			System.err.println(e.getMessage());
+		}
+		return result;
+	}
+	
 }

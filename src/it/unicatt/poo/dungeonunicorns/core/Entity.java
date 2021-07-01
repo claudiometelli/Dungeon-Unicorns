@@ -60,16 +60,32 @@ public abstract class Entity {
 		return genericMove(1, 0);
 	}
 	
+	public boolean canMoveRight() {
+		return isMovementAllowed(1, 0);
+	}
+	
 	public boolean moveLeft() {
 		return genericMove(-1, 0);
+	}
+	
+	public boolean canMoveLeft() {
+		return isMovementAllowed(-1, 0);
 	}
 	
 	public boolean moveUp() {
 		return genericMove(0, 1);
 	}
 	
+	public boolean canMoveUp() {
+		return isMovementAllowed(0, 1);
+	}
+	
 	public boolean moveDown() {
 		return genericMove(0, -1);
+	}
+	
+	public boolean canMoveDown() {
+		return isMovementAllowed(0, -1);
 	}
 	
 	public boolean isAnotherEntityBordering() {
