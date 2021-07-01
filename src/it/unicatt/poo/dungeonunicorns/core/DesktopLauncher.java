@@ -7,6 +7,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
 import it.unicatt.poo.dungeonunicorns.exceptions.AttributeNotSpecifiedException;
+import it.unicatt.poo.dungeonunicorns.graphics.MainGame;
 import it.unicatt.poo.dungeonunicorns.utils.IOUtils;
 
 public class DesktopLauncher {
@@ -14,7 +15,7 @@ public class DesktopLauncher {
 	private final static String SCREEN_CONFIG_PATH = "configfiles/ScreenConfig.txt";
 	
 	public static void main (String[] arg) {
-		new LwjglApplication(new Test(), configLauncher());
+		new LwjglApplication(MainGame.getInstance(), configLauncher());
 	}
 	
 	private static LwjglApplicationConfiguration configLauncher() {

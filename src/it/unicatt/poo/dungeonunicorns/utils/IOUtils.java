@@ -20,9 +20,9 @@ public class IOUtils {
 	/**
 	 * Reads a file with a list of attributes and return the attribute specified
 	 * 
-	 * @param file
-	 * @param attribute
-	 * @return String
+	 * @param file the file to be read
+	 * @param attribute the attribute to find
+	 * @return the value of the attribute
 	 */
 	public static String getAttributeFromConfigFile(Path file, String attribute) throws AttributeNotSpecifiedException {
 		String result = null;
@@ -46,11 +46,11 @@ public class IOUtils {
 	}
 
 	/**
-	 * Reads a file with a list of attributes and return the attribute specified
+	 * Reads a file with a list of attributes and return the attribute specified as integer
 	 * 
-	 * @param file
-	 * @param attribute
-	 * @return Integer
+	 * @param file the file to be read
+	 * @param attribute the attribute to find
+	 * @return the value of the attribute
 	 */
 	public static Integer getIntegerAttributeFromConfigFile(Path file, String attribute) throws AttributeNotSpecifiedException {
 		Integer result = null;
@@ -66,8 +66,8 @@ public class IOUtils {
 
 	/**
 	 * Check if a string can be converted into an integer
-	 * @param str
-	 * @return boolean
+	 * @param str the string to be checked
+	 * @return true if integer, false otherwise
 	 */
 	private static boolean isInteger(String str) {
 		boolean result = false;
@@ -79,4 +79,40 @@ public class IOUtils {
 		}
 		return result;
 	}
+	
+	/**
+	 * Reads a file with a list of attributes and return the attribute specified as float
+	 * 
+	 * @param file the file to be read
+	 * @param attribute the attribute to find
+	 * @return the value of the attribute
+	 */
+	public static Float getFloatAttributeFromConfigFile(Path file, String attribute) throws AttributeNotSpecifiedException {
+		Float result = null;
+		String string = getAttributeFromConfigFile(file, attribute);
+		if (string != null && isFloat(string)) {
+			result = Float.valueOf(string);
+		}
+		if(result == null) {
+			throw new AttributeNotSpecifiedException(attribute, file.getFileName().toString());
+		}
+		return result;
+	}
+	
+	/**
+	 * Check if a string can be converted into an integer
+	 * @param str the string to be checked
+	 * @return true if integer, false otherwise
+	 */
+	private static boolean isFloat(String str) {
+		boolean result = false;
+		try {
+			Float.parseFloat(str);
+			result = true;
+		} catch (NumberFormatException e) {
+			result = false;
+		}
+		return result;
+	}
+	
 }

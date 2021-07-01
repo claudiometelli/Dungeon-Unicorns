@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.unicatt.poo.dungeonunicorns.beans.Coordinate;
-import it.unicatt.poo.dungeonunicorns.beans.rooms.Room;
+import it.unicatt.poo.dungeonunicorns.beans.Room;
 
 public abstract class Entity {
 	

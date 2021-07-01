@@ -1,9 +1,7 @@
-package it.unicatt.poo.dungeonunicorns.beans.rooms;
+package it.unicatt.poo.dungeonunicorns.beans;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import it.unicatt.poo.dungeonunicorns.beans.Coordinate;
 
 /**
  * A class which represent a room of a dungeon in the game
@@ -14,7 +12,7 @@ import it.unicatt.poo.dungeonunicorns.beans.Coordinate;
  * @version 1.0.0
  *
  */
-public abstract class Room {
+public class Room {
 	/**
 	 * The set of coordinates used to fill the room
 	 */
@@ -22,6 +20,7 @@ public abstract class Room {
 	
 	private int width;
 	private int height;
+	private Coordinate spawningPoint;
 	
 	public Room(int width, int height) {
 		this.width = width;
@@ -38,6 +37,14 @@ public abstract class Room {
 	
 	public Coordinate[] getCoordinates() {
 		return coordinates;
+	}
+	
+	public Coordinate getSpawningPoint() {
+		return spawningPoint;
+	}
+	
+	public void setSpawningPoint(Coordinate spawningPoint) {
+		this.spawningPoint = spawningPoint;
 	}
 	
 	public Coordinate getCoordinateByPosition(int x, int y) {
@@ -61,7 +68,20 @@ public abstract class Room {
 		return result.toString();
 	}
 	
+	/**
+	 * ritorna le coordinate vicine su cui si può camminare
+	 * @param coordinate
+	 * @return 
+	 */
 	public List<Coordinate> getWalkableBorderingCoordinates(Coordinate coordinate) {
+		List<Coordinate> bordering = getBorderingCoordinates(coordinate);
+		List<Coordinate> result = new ArrayList<Coordinate>();
+		for(Coordinate borderCoordinate : bordering) {
+			if(borderCoordinate.isWalkable()) {
+				result.add(borderCoordinate);
+			}
+		}
+		/*
 		List<Coordinate> result = new ArrayList<Coordinate>();
 		if(!(coordinate.getX() == 0 || !getCoordinateByPosition(coordinate.getX() - 1, coordinate.getY()).isWalkable())) {
 			result.add(getCoordinateByPosition(coordinate.getX() - 1, coordinate.getY()));
@@ -75,6 +95,43 @@ public abstract class Room {
 		if(!(coordinate.getY() == height - 1 || !getCoordinateByPosition(coordinate.getX(), coordinate.getY() + 1).isWalkable())) {
 			result.add(getCoordinateByPosition(coordinate.getX(), coordinate.getY() + 1));
 		}
+		*/
 		return result;
 	}
+	
+	public List<Coordinate> getNotWalkableBorderingCoordinates(Coordinate coordinate) {
+		List<Coordinate> bordering = getBorderingCoordinates(coordinate);
+		List<Coordinate> result = new ArrayList<Coordinate>();
+		for(Coordinate borderCoordinate : bordering) {
+			if(!borderCoordinate.isWalkable()) {
+				result.add(borderCoordinate);
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * ritorna le coordinate vicine
+	 * @param coordinate
+	 * @return
+	 */
+	public List<Coordinate> getBorderingCoordinates(Coordinate coordinate){
+		List<Coordinate> result = new ArrayList<Coordinate>();
+		int x = coordinate.getX();
+		int y = coordinate.getY();
+		if(x != 0) {
+			result.add(getCoordinateByPosition(x - 1, y));
+		}
+		if(x != width - 1) {
+			result.add(getCoordinateByPosition(x + 1, y));
+		}
+		if(y != 0) {
+			result.add(getCoordinateByPosition(x, y - 1));
+		}
+		if(y != height - 1) {
+			result.add(getCoordinateByPosition(x, y + 1));
+		}
+		return result;
+	}
+	
 }

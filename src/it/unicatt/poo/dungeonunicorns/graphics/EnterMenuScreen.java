@@ -4,18 +4,21 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-
-import it.unicatt.poo.dungeonunicorns.core.Test;
 
 public class EnterMenuScreen implements Screen {
 	
-	private final Test game;
+	private final MainGame game;
+	
 	private OrthographicCamera camera;
 	private Texture backgroundTexture;
 	
-	public EnterMenuScreen(Test game) {
+	
+	public EnterMenuScreen(MainGame game) {
 		this.game = game;
+		game.setEnterMenuScreen(this);
 		this.camera = new OrthographicCamera();
 		camera.setToOrtho(false);
 		backgroundTexture = new Texture("images/EnterScreenImage.png");
@@ -24,7 +27,6 @@ public class EnterMenuScreen implements Screen {
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -70,7 +72,6 @@ public class EnterMenuScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
 		
 	}
 

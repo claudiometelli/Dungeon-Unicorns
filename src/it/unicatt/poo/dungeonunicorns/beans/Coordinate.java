@@ -42,6 +42,10 @@ public class Coordinate {
 		this.y = y;
 	}
 	
+	/**
+	 *  
+	 * @return the x position of the coordinate
+	 */
 	public int getX() {
 		return x;
 	}
