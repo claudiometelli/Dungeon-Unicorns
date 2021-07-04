@@ -5,20 +5,33 @@ import java.util.List;
 
 import it.unicatt.poo.dungeonunicorns.beans.Coordinate;
 import it.unicatt.poo.dungeonunicorns.beans.Room;
+import it.unicatt.poo.dungeonunicorns.beans.armors.Armor;
+import it.unicatt.poo.dungeonunicorns.beans.weapons.Weapon;
+import it.unicatt.poo.dungeonunicorns.managers.EntitiesIdManager;
 
 public abstract class Entity {
 	
 	String entityId;
+	private int instanceId;
 	private int life;
+	
+	private Armor armor;
+	private Weapon weapon;
+	
 	private Coordinate currentPosition;
 	private Room currentRoom;
 	
 	public Entity(int life) {
+		this.instanceId = EntitiesIdManager.getNewId();
 		this.life = life;
 	}
 	
 	public String getEntityId() {
 		return entityId;
+	}
+	
+	public int getInstanceId() {
+		return instanceId;
 	}
 	
 	public int getLife() {
@@ -27,6 +40,22 @@ public abstract class Entity {
 	
 	public void setLife(int life) {
 		this.life = life;
+	}
+	
+	public Armor getArmor() {
+		return armor;
+	}
+	
+	public void setArmor(Armor armor) {
+		this.armor = armor;
+	}
+	
+	public Weapon getWeapon() {
+		return weapon;
+	}
+	
+	public void setWeapon(Weapon weapon) {
+		this.weapon = weapon;
 	}
 	
 	public Coordinate getCurrentPosition() {
@@ -142,5 +171,19 @@ public abstract class Entity {
 		}
 		return result;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		boolean result = false;
+		if(obj instanceof Entity && obj != null) {
+			Entity object = (Entity) obj;
+			if(entityId.equals(object.getEntityId())) {
+				result = true;
+			}
+		}
+		return result;
+	}
+	
+	public abstract boolean attack(Entity enemy);
 	
 }

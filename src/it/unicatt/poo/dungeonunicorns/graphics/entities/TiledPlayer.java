@@ -15,7 +15,12 @@ public class TiledPlayer extends TiledEntity {
 		readTexturesAndAssign();
 	}
 	
-	private void readTexturesAndAssign() {
+	public Player getPlayer() {
+		return (Player) super.getEntity();
+	}
+	
+	@Override
+	protected void readTexturesAndAssign() {
 		AssetManager assetManager = new AssetManager();
 		assetManager.load("assets/player_assets/player_not_moving.png", Texture.class);
 		assetManager.load("assets/player_assets/right_movement_00.png", Texture.class);

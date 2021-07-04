@@ -20,7 +20,7 @@ public class DesktopLauncher {
 	
 	private static LwjglApplicationConfiguration configLauncher() {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		// reading file configuration from config file
+		// reading file configuration from configuration  file
 		Path configFile = Paths.get(SCREEN_CONFIG_PATH);
 		try {
 			config.title = IOUtils.getAttributeFromConfigFile(configFile, "Title");;
