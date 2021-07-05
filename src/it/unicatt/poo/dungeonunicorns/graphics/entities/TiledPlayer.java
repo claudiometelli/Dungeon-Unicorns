@@ -4,7 +4,9 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import it.unicatt.poo.dungeonunicorns.core.EntityDirection;
 import it.unicatt.poo.dungeonunicorns.core.Player;
+import it.unicatt.poo.dungeonunicorns.graphics.MainGame;
 import it.unicatt.poo.dungeonunicorns.managers.TextureSizeManager;
 
 public class TiledPlayer extends TiledEntity {
@@ -17,6 +19,98 @@ public class TiledPlayer extends TiledEntity {
 	
 	public Player getPlayer() {
 		return (Player) super.getEntity();
+	}
+	
+	public boolean attack(TiledEntity entity) {
+		return getPlayer().attack(entity.getEntity());
+	}
+
+	public boolean moveRight() {
+		boolean result = getPlayer().canMoveRight();
+		if(!super.isMoving() && result) {
+			super.setArrivingPoint(super.getXPositionEntityArea() + MainGame.getInstance().getGameScreen().getCoordinateSize());
+			super.setActualDirection(EntityDirection.RIGHT);
+			super.setMoving(true);
+		}
+		if(result) {
+			super.setXPositionEntityArea(super.getXPositionEntityArea() + MainGame.getInstance().getGameScreen().getCoordinateSize() / NUMBER_OF_ANIMATIONS_DURING_MOVEMENT);
+			if(super.getXPositionEntityArea() >= super.getArrivingPoint()) {
+				super.setXPositionEntityArea(super.getArrivingPoint());
+				super.getCoordinate().setEntity(null);
+				super.getEntity().moveRight();
+				super.setCoordinate(super.getRoom().getCoordinateByPosition(super.getEntity().getCurrentPosition()));
+				super.getCoordinate().setEntity(this);
+				super.setActualDirection(EntityDirection.NO_DIRECTION);
+				super.setMoving(false);
+			}
+		}
+		return result;
+	}
+	
+	public boolean moveLeft() {
+		boolean result = getPlayer().canMoveLeft();
+		if(!super.isMoving() && result) {
+			super.setArrivingPoint(super.getXPositionEntityArea() - MainGame.getInstance().getGameScreen().getCoordinateSize());
+			super.setActualDirection(EntityDirection.LEFT);
+			super.setMoving(true);
+		}
+		if(result) {
+			super.setXPositionEntityArea(super.getXPositionEntityArea() - MainGame.getInstance().getGameScreen().getCoordinateSize() / NUMBER_OF_ANIMATIONS_DURING_MOVEMENT);
+			if(super.getXPositionEntityArea() <= super.getArrivingPoint()) {
+				super.setXPositionEntityArea(super.getArrivingPoint());
+				super.getCoordinate().setEntity(null);
+				super.getEntity().moveLeft();
+				super.setCoordinate(super.getRoom().getCoordinateByPosition(super.getEntity().getCurrentPosition()));
+				super.getCoordinate().setEntity(this);
+				super.setActualDirection(EntityDirection.NO_DIRECTION);
+				super.setMoving(false);
+			}
+		}
+		return result;
+	}
+	
+	public boolean moveUp() {
+		boolean result = getPlayer().canMoveUp();
+		if(!super.isMoving() && result) {
+			super.setArrivingPoint(super.getYPositionEntityArea() - MainGame.getInstance().getGameScreen().getCoordinateSize());
+			super.setActualDirection(EntityDirection.UP);
+			super.setMoving(true);
+		}
+		if(result) {
+			super.setYPositionEntityArea(super.getYPositionEntityArea() - MainGame.getInstance().getGameScreen().getCoordinateSize() / NUMBER_OF_ANIMATIONS_DURING_MOVEMENT);
+			if(super.getYPositionEntityArea() <= super.getArrivingPoint()) {
+				super.setYPositionEntityArea(super.getArrivingPoint());
+				super.getCoordinate().setEntity(null);
+				super.getEntity().moveUp();
+				super.setCoordinate(super.getRoom().getCoordinateByPosition(super.getEntity().getCurrentPosition()));
+				super.getCoordinate().setEntity(this);
+				super.setActualDirection(EntityDirection.NO_DIRECTION);
+				super.setMoving(false);
+			}
+		}
+		return result;
+	}
+	
+	public boolean moveDown() {
+		boolean result = getPlayer().canMoveDown();
+		if(!super.isMoving() && result) {
+			super.setArrivingPoint(super.getYPositionEntityArea() + MainGame.getInstance().getGameScreen().getCoordinateSize());
+			super.setActualDirection(EntityDirection.DOWN);
+			super.setMoving(true);
+		}
+		if(result) {
+			super.setYPositionEntityArea(super.getYPositionEntityArea() + MainGame.getInstance().getGameScreen().getCoordinateSize() / NUMBER_OF_ANIMATIONS_DURING_MOVEMENT);
+			if(super.getYPositionEntityArea() >= super.getArrivingPoint()) {
+				super.setYPositionEntityArea(super.getArrivingPoint());
+				super.getCoordinate().setEntity(null);
+				super.getEntity().moveDown();
+				super.setCoordinate(super.getRoom().getCoordinateByPosition(super.getEntity().getCurrentPosition()));
+				super.getCoordinate().setEntity(this);
+				super.setActualDirection(EntityDirection.NO_DIRECTION);
+				super.setMoving(false);
+			}
+		}
+		return result;
 	}
 	
 	@Override

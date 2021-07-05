@@ -14,18 +14,60 @@ public class EnemyIntelligence {
 	
 	public EntityDirection isGoingToMove() {
 		EntityDirection result = EntityDirection.NO_DIRECTION;
-		if(player.getCurrentPosition().getX() > enemy.getCurrentPosition().getX() && enemy.canMoveRight()) {
+		if(isGoingToMoveRight()) {
 			result = EntityDirection.RIGHT;
-		} else if(player.getCurrentPosition().getX() < enemy.getCurrentPosition().getX() && enemy.canMoveLeft()) {
+		} else if(isGoingToMoveLeft()) {
 			result = EntityDirection.LEFT;
-		} else if(player.getCurrentPosition().getY() > enemy.getCurrentPosition().getY() && enemy.canMoveUp()) {
+		} else if(isGoingToMoveUp()) {
 			result = EntityDirection.UP;
-		} else if(player.getCurrentPosition().getY() < enemy.getCurrentPosition().getY() && enemy.canMoveDown()) {
+		} else if(isGoingToMoveDown()) {
 			result = EntityDirection.DOWN;
 		}
 		return result;
 	}
 	
+	/**
+	 * Checks if can move right in open spaces
+	 * TODO make it work in every type of space
+	 * @return true if it is going to move, false if not
+	 */
+	private boolean isGoingToMoveRight() {
+		return player.getCurrentPosition().getX() > enemy.getCurrentPosition().getX() && enemy.canMoveRight();
+	}
+	
+	/**
+	 * Checks if can move left in open spaces
+	 * TODO make it work in every type of space
+	 * @return true if it is going to move, false if not
+	 */
+	private boolean isGoingToMoveLeft() {
+		return player.getCurrentPosition().getX() < enemy.getCurrentPosition().getX() && enemy.canMoveLeft();
+	}
+	
+	/**
+	 * Checks if can move up in open spaces
+	 * TODO make it work in every type of space
+	 * @return true if it is going to move, false if not
+	 */
+	private boolean isGoingToMoveUp() {
+		return player.getCurrentPosition().getY() > enemy.getCurrentPosition().getY() && enemy.canMoveUp();
+	}
+	
+	/**
+	 * Checks if can move down in open spaces
+	 * TODO make it work in every type of space
+	 * @return true if it is going to move, false if not
+	 */
+	private boolean isGoingToMoveDown() {
+		return player.getCurrentPosition().getY() < enemy.getCurrentPosition().getY() && enemy.canMoveDown();
+	}
+	
+	/**
+	 * Work only in rectangles open squares
+	 * TODO Work for better intelligence
+	 * 
+	 * @return true if enemy is moving, false if not
+	 */
 	public boolean nextMove() {
 		boolean result = false;
 		// Moves into player direction
@@ -39,12 +81,22 @@ public class EnemyIntelligence {
 		} else if(direction.equals(EntityDirection.DOWN)) {
 			result = enemy.moveDown();
 		}
-		// Checks for attack
+//		else if(direction.equals(EntityDirection.NO_DIRECTION)) {
+//			// Not Moving, checks for attack
+//			for(Coordinate bordering : enemy.getCurrentRoom().getBorderingCoordinates(enemy.getCurrentPosition())) {
+//				if(bordering.getEntity() != null && bordering.getEntity().equals(player)) {
+//					enemy.attack(player);
+//					System.out.println("MONSTER ATTACK: PlayerLife: " + player.getLife() + "EnemyLife: " + enemy.getLife());
+//				}
+//			}
+//		}
 		for(Coordinate bordering : enemy.getCurrentRoom().getBorderingCoordinates(enemy.getCurrentPosition())) {
 			if(bordering.getEntity() != null && bordering.getEntity().equals(player)) {
 				enemy.attack(player);
+				System.out.println("MONSTER ATTACK: PlayerLife: " + player.getLife() + "EnemyLife: " + enemy.getLife());
 			}
 		}
+		
 		return result;
 	}
 	
