@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import it.unicatt.poo.dungeonunicorns.core.EntityDirection;
 import it.unicatt.poo.dungeonunicorns.core.Monster;
-import it.unicatt.poo.dungeonunicorns.core.Player;
 import it.unicatt.poo.dungeonunicorns.graphics.MainGame;
 import it.unicatt.poo.dungeonunicorns.managers.TextureSizeManager;
 
@@ -38,9 +37,9 @@ public class TiledMonster extends TiledEntity {
 			} else if(result.equals(EntityDirection.LEFT)) {
 				super.setArrivingPoint(super.getXPositionEntityArea() - MainGame.getInstance().getGameScreen().getCoordinateSize());
 			} else if(result.equals(EntityDirection.UP)) {
-				super.setArrivingPoint(super.getYPositionEntityArea() + MainGame.getInstance().getGameScreen().getCoordinateSize());
-			} else if(result.equals(EntityDirection.DOWN)) {
 				super.setArrivingPoint(super.getYPositionEntityArea() - MainGame.getInstance().getGameScreen().getCoordinateSize());
+			} else if(result.equals(EntityDirection.DOWN)) {
+				super.setArrivingPoint(super.getYPositionEntityArea() + MainGame.getInstance().getGameScreen().getCoordinateSize());
 			}
 			super.setMoving(true);
 		} else if(!super.isMoving() && result.equals(EntityDirection.NO_DIRECTION)){
@@ -59,26 +58,23 @@ public class TiledMonster extends TiledEntity {
 				super.setXPositionEntityArea(super.getXPositionEntityArea() - MainGame.getInstance().getGameScreen().getCoordinateSize() / NUMBER_OF_ANIMATIONS_DURING_MOVEMENT);
 				if(super.getXPositionEntityArea() <= super.getArrivingPoint()) {
 					super.setArrivingPoint(super.getXPositionEntityArea());
-					//super.getEntity().moveLeft();
 					getMonster().getIntelligence().nextMove();
 					super.setActualDirection(EntityDirection.NO_DIRECTION);
 					super.setMoving(false);
 				}
 			} else if(result.equals(EntityDirection.UP)) {
-				super.setYPositionEntityArea(super.getYPositionEntityArea() + MainGame.getInstance().getGameScreen().getCoordinateSize() / NUMBER_OF_ANIMATIONS_DURING_MOVEMENT);
-				if(super.getYPositionEntityArea() >= super.getArrivingPoint()) {
-					super.setArrivingPoint(super.getYPositionEntityArea());
-					getMonster().getIntelligence().nextMove();
-					//super.getEntity().moveUp();
-					super.setActualDirection(EntityDirection.NO_DIRECTION);
-					super.setMoving(false);
-				}
-			} else if(result.equals(EntityDirection.DOWN)) {
 				super.setYPositionEntityArea(super.getYPositionEntityArea() - MainGame.getInstance().getGameScreen().getCoordinateSize() / NUMBER_OF_ANIMATIONS_DURING_MOVEMENT);
 				if(super.getYPositionEntityArea() <= super.getArrivingPoint()) {
 					super.setArrivingPoint(super.getYPositionEntityArea());
 					getMonster().getIntelligence().nextMove();
-					//super.getEntity().moveDown();
+					super.setActualDirection(EntityDirection.NO_DIRECTION);
+					super.setMoving(false);
+				}
+			} else if(result.equals(EntityDirection.DOWN)) {
+				super.setYPositionEntityArea(super.getYPositionEntityArea() + MainGame.getInstance().getGameScreen().getCoordinateSize() / NUMBER_OF_ANIMATIONS_DURING_MOVEMENT);
+				if(super.getYPositionEntityArea() >= super.getArrivingPoint()) {
+					super.setArrivingPoint(super.getYPositionEntityArea());
+					getMonster().getIntelligence().nextMove();
 					super.setActualDirection(EntityDirection.NO_DIRECTION);
 					super.setMoving(false);
 				}

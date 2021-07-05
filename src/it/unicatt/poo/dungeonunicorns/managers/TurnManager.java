@@ -21,6 +21,10 @@ public class TurnManager {
 		actualTurnEntity = entity;
 	}
 	
+//	public static boolean hasEntityAlreadyAttack() {
+//		
+//	}
+	
 	public static boolean isEntityTurn(TiledEntity entity) {
 		boolean result = false;
 		if(entity.equals(actualTurnEntity)) {

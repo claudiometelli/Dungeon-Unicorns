@@ -39,6 +39,14 @@ public class Room {
 		return coordinates;
 	}
 	
+	public int getWidth() {
+		return width;
+	}
+	
+	public int getHeight() {
+		return height;
+	}
+	
 	public Coordinate getSpawningPoint() {
 		return spawningPoint;
 	}

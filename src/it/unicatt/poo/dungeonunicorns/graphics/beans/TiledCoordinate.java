@@ -3,6 +3,7 @@ package it.unicatt.poo.dungeonunicorns.graphics.beans;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
 import it.unicatt.poo.dungeonunicorns.beans.Coordinate;
+import it.unicatt.poo.dungeonunicorns.graphics.entities.TiledEntity;
 
 public class TiledCoordinate {
 	
@@ -11,6 +12,7 @@ public class TiledCoordinate {
 	 */
 	private Cell cell;
 	private Coordinate coordinate;
+	private TiledEntity entity;
 	
 	public TiledCoordinate(Cell cell, Coordinate coordinate) {
 		this.cell = cell;
@@ -31,6 +33,14 @@ public class TiledCoordinate {
 	
 	public void setCoordinate(Coordinate coordinate) {
 		this.coordinate = coordinate;
+	}
+	
+	public TiledEntity getEntity() {
+		return entity;
+	}
+	
+	public void setEntity(TiledEntity entity) {
+		this.entity = entity;
 	}
 	
 }

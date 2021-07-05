@@ -21,6 +21,7 @@ public class Player extends Entity {
 			}
 			result = true;
 		}
+		System.out.println("PLAYER ATTACK: PlayerLife: " + super.getLife() + "EnemyLife: " + enemy.getLife());
 		return result;
 	}
 	
