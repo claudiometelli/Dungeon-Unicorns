@@ -8,16 +8,15 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
 import it.unicatt.poo.dungeonunicorns.core.Entity;
-import it.unicatt.poo.dungeonunicorns.core.Player;
-import it.unicatt.poo.dungeonunicorns.exceptions.AttributeNotSpecifiedException;
+import it.unicatt.poo.dungeonunicorns.core.EntityDirection;
 import it.unicatt.poo.dungeonunicorns.graphics.MainGame;
 import it.unicatt.poo.dungeonunicorns.graphics.beans.TiledRoom;
 import it.unicatt.poo.dungeonunicorns.utils.IOUtils;
 
 public abstract class TiledEntity {
 	
-	private final static int NUMBER_OF_ANIMATIONS_DURING_MOVEMENT = 16;
-	private final static float ANIMATION_TIME = IOUtils.getInstantFloatAttributeFromConfigFile(Paths.get("configfiles/ScaleConfig.txt"), "ANIMATION_TIME");
+	final static int NUMBER_OF_ANIMATIONS_DURING_MOVEMENT = 16;
+	final static float ANIMATION_TIME = IOUtils.getInstantFloatAttributeFromConfigFile(Paths.get("configfiles/ScaleConfig.txt"), "ANIMATION_TIME");
 	
 	
 	private Entity entity;
@@ -195,6 +194,14 @@ public abstract class TiledEntity {
 		this.moving = moving;
 	}
 	
+	public float getArrivingPoint() {
+		return arrivingPoint;
+	}
+	
+	public void setArrivingPoint(float arrivingPoint) {
+		this.arrivingPoint = arrivingPoint;
+	}
+	
 	public void placeEntity(TiledRoom room, int x, int y) {
 		this.room = room;
 		float coordinateSize = MainGame.getInstance().getGameScreen().getCoordinateSize();
@@ -277,4 +284,6 @@ public abstract class TiledEntity {
 		}
 		return result;
 	}
+	
+	protected abstract void readTexturesAndAssign();
 }

@@ -43,4 +43,14 @@ public class TextureSizeManager {
 		return resizeTexture(texture, multiplier);
 	}
 	
+	public static Texture resizeMonster(Texture texture) {
+		Float multiplier = null;
+		try {
+			multiplier = IOUtils.getFloatAttributeFromConfigFile(Paths.get("configfiles/ScaleConfig.txt"), "MONSTER_MULTIPLIER");
+		} catch (AttributeNotSpecifiedException e) {
+			System.err.println(e.getMessage());
+		}
+		return resizeTexture(texture, multiplier);
+	}
+	
 }

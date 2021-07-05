@@ -1,4 +1,4 @@
-package it.unicatt.poo.dungeonunicorns.graphics.entities;
+package it.unicatt.poo.dungeonunicorns.core;
 
 public enum EntityDirection {
 	NO_DIRECTION,

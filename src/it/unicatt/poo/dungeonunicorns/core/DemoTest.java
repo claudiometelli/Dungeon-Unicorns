@@ -4,17 +4,16 @@ import it.unicatt.poo.dungeonunicorns.beans.SquareRoom;
 
 public class DemoTest {
 	public static void main(String[] args) {
-		SquareRoom room = new SquareRoom(15, 15, 4, 4);
+		SquareRoom room = new SquareRoom(15, 15, 2, 10);
 		//CrossRoom room = new CrossRoom(10, 10, 4, 4);
 		Player player = new Player();
-		Monster monster = new Monster();
-		player.placeEntity(room, 3, 2);
-		monster.placeEntity(room, 4, 2);
+		Monster monster = new Monster(player);
+		player.placeEntity(room, 6, 7);
+		monster.placeEntity(room, 8, 7);
 		System.out.println(room.printRoom() + player.toString() + "\n" + monster.toString());
-		player.moveUp();
-		System.out.println(room.printRoom() + player.toString() + "\n" + monster.toString());
-		player.moveDown();
-		player.attack(monster);
+		monster.getIntelligence().nextMove();
+		monster.getIntelligence().nextMove();
+		monster.getIntelligence().nextMove();
 		System.out.println(room.printRoom() + player.toString() + "\n" + monster.toString());
 	}
 }
