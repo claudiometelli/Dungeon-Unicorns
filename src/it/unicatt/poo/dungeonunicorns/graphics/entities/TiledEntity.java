@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
+import it.unicatt.poo.dungeonunicorns.beans.Coordinate;
 import it.unicatt.poo.dungeonunicorns.core.Entity;
 import it.unicatt.poo.dungeonunicorns.core.EntityDirection;
 import it.unicatt.poo.dungeonunicorns.graphics.MainGame;
@@ -213,11 +214,26 @@ public abstract class TiledEntity {
 	}
 	
 	public void placeEntity(TiledRoom room, int x, int y) {
+		placeEntity(room, room.getCoordinateByPosition(x, y));
+	}
+	
+	public void placeEntity(TiledRoom room, TiledCoordinate coordinate) {
 		this.room = room;
+		this.coordinate = coordinate;
 		float coordinateSize = MainGame.getInstance().getGameScreen().getCoordinateSize();
-		coordinate = room.getCoordinateByPosition(x, y);
-		setPositionEntityArea(x * coordinateSize, (room.getRoom().getHeight() - y) * coordinateSize);
-		entity.placeEntity(room.getRoom(), x, y);
+		setPositionEntityArea(coordinate.getCoordinate().getX() * coordinateSize, (room.getRoom().getHeight() - coordinate.getCoordinate().getY()) * coordinateSize);
+		entity.placeEntity(room.getRoom(), coordinate.getCoordinate());
+	}
+	
+	public boolean isInRoom(TiledRoom room) {
+		return this.room.getRoom().equals(room.getRoom());
+	}
+	
+	public void deleteEntity() {
+		coordinate.setEntity(null);
+		entity.getCurrentPosition().setEntity(null);
+		texture.dispose();
+		entityArea = null;
 	}
 	
 //	public boolean moveRight() {

@@ -1,5 +1,7 @@
 package it.unicatt.poo.dungeonunicorns.core;
 
+import it.unicatt.poo.dungeonunicorns.beans.armors.WhiteArmor;
+
 public class Monster extends Entity {
 	
 	private final static int MONSTER_LIFE_STARTING_VALUE = 100;
@@ -13,6 +15,7 @@ public class Monster extends Entity {
 		super(MONSTER_LIFE_STARTING_VALUE);
 		this.entityId = "Monster";
 		this.intelligence = new EnemyIntelligence(this, player);
+		super.setArmor(new WhiteArmor());
 	}
 	
 	public EnemyIntelligence getIntelligence() {

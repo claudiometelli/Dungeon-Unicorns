@@ -1,12 +1,14 @@
 package it.unicatt.poo.dungeonunicorns.graphics;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+
+import it.unicatt.poo.dungeonunicorns.graphics.levels.LevelOne;
+import it.unicatt.poo.dungeonunicorns.graphics.levels.LevelTwo;
 
 public class EnterMenuScreen implements Screen {
 	
@@ -16,7 +18,7 @@ public class EnterMenuScreen implements Screen {
 	private Texture backgroundTexture;
 	
 	
-	public EnterMenuScreen(MainGame game) {
+	public EnterMenuScreen(final MainGame game) {
 		this.game = game;
 		game.setEnterMenuScreen(this);
 		this.camera = new OrthographicCamera();
@@ -37,11 +39,19 @@ public class EnterMenuScreen implements Screen {
 		game.getBatch().begin();
 		game.getBatch().draw(backgroundTexture, 0, 0);
 		// TODO cambiare il font e il colore della scritta
-		game.getFont().draw(game.getBatch(), "Tap anywhere to begin!", (Gdx.graphics.getWidth() / 5) * 4, 50);
+		game.getFont().draw(game.getBatch(), "Press 1 for level 1\nPress 2 for level 2", (Gdx.graphics.getWidth() / 5) * 4, 50);
 		game.getBatch().end();
 
-		if (Gdx.input.isTouched()) {
-			game.setScreen(new GameScreen(game));
+		if(Gdx.input.isKeyJustPressed(Keys.NUM_1)) {
+			GameScreen gameScreen = new GameScreen(game);
+			gameScreen.setLevel(new LevelOne());
+			game.setScreen(gameScreen);
+			dispose();
+		}
+		if(Gdx.input.isKeyJustPressed(Keys.NUM_2)) {
+			GameScreen gameScreen = new GameScreen(game);
+			gameScreen.setLevel(new LevelTwo());
+			game.setScreen(gameScreen);
 			dispose();
 		}
 	}

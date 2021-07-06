@@ -1,27 +1,36 @@
 package it.unicatt.poo.dungeonunicorns.graphics.beans;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.lwjgl.opengl.ARBGetTextureSubImage;
+
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 import it.unicatt.poo.dungeonunicorns.beans.Coordinate;
 import it.unicatt.poo.dungeonunicorns.beans.Room;
 import it.unicatt.poo.dungeonunicorns.graphics.MainGame;
+import it.unicatt.poo.dungeonunicorns.graphics.entities.TiledEntity;
 
 public class TiledRoom {
 
 	private TiledMap map;
 	private TiledCoordinate[] coordinates;
 	private Room room;
+	
+	private Map<TiledEntity, TiledCoordinate> spawningPoints;
 
 	public TiledRoom(TiledMap map) {
 		this.map = map;
 		this.room = new Room(getMapWidth(), getMapHeight());
 		this.coordinates = new TiledCoordinate[getMapWidth() * getMapHeight()];
+		spawningPoints = new HashMap<TiledEntity, TiledCoordinate>();
 		createRoom();
 	}
 
 	private void createRoom() {
-		// riempio livello con le coordinate su cui si può camminare
+		// filling level with walkable coordinates
 		TiledMapTileLayer tiledLayer0 = (TiledMapTileLayer) map.getLayers().get(0);
 		int counter = 0;
 		for (int x = 0; x < tiledLayer0.getWidth(); x++) {
@@ -34,7 +43,7 @@ public class TiledRoom {
 				counter++;
 			}
 		}
-		// setto not walkable i tile del livello 1
+		// level1 tiles setted as no walkable
 		TiledMapTileLayer tiledLayer1 = (TiledMapTileLayer) map.getLayers().get(1);
 		for (int x = 0; x < tiledLayer1.getWidth(); x++) {
 			for (int y = 0; y < tiledLayer1.getHeight(); y++) {
@@ -43,7 +52,7 @@ public class TiledRoom {
 				}
 			}
 		}
-		// cerco i bordi
+		// looking for borders
 		for (TiledCoordinate coordinate : coordinates) {
 			if (coordinate.getCoordinate().isWalkable()) {
 				int x = coordinate.getCoordinate().getX();
@@ -111,14 +120,14 @@ public class TiledRoom {
 		}
 		return result;
 	}
-
-	public TiledCoordinate getCoordinateByScreenCoordinates(float x, float y) {
-		TiledCoordinate result = null;
-		int xTile = Math.round(x / MainGame.getInstance().getGameScreen().getCoordinateSize());
-		int yTile = Math.round((MainGame.getInstance().getGameScreen().getCoordinateSize() * room.getHeight() - y)
-				/ MainGame.getInstance().getGameScreen().getCoordinateSize());
-		result = getCoordinateByPosition(xTile, yTile);
-		return result;
+	
+	public TiledCoordinate getSpawningPoint(TiledEntity entity) {
+		return spawningPoints.get(entity);
+	}
+	
+	public void setSpawningPoint(TiledCoordinate coordinate, TiledEntity entity) {
+		spawningPoints.put(entity, coordinate);
+		entity.setRoom(this);
 	}
 
 }
