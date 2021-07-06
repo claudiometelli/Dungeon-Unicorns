@@ -36,7 +36,7 @@ public class Coordinate {
 	 */
 	private boolean walkable;
 	/**
-	 * A boolean used to check if the coordinae is used as teleporter
+	 * A boolean used to check if the coordinate is used as teleporter
 	 */
 	private Teleporter teleporter;
 	/**
@@ -50,22 +50,26 @@ public class Coordinate {
 		this.y = y;
 	}
 
+	/**
+	 * 
+	 * @return the room where the coordinate is
+	 */
 	public Room getRoom() {
 		return room;
 	}
 
-	public void setRoom(Room room) {
-		this.room = room;
-	}
-
 	/**
 	 * 
-	 * @return the x position of the coordinate
+	 * @return the position of the coordinate on the x ass
 	 */
 	public int getX() {
 		return x;
 	}
 
+	/**
+	 * 
+	 * @return the position of the coordinate on the y ass
+	 */
 	public int getY() {
 		return y;
 	}
@@ -145,6 +149,25 @@ public class Coordinate {
 	public void setWalkable(boolean walkable) {
 		this.walkable = walkable;
 	}
+	
+	/**
+	 * 
+	 * 
+	 * @return the character which represent the coordinate to be printed
+	 */
+	public char printCoordinate() {
+		char result = '-';
+		if(entity != null) {
+			result = entity.getEntityId().charAt(0);
+		} else if(teleporter != null) {
+			result = 'T';
+		} else if(!walkable) {
+			result = '?';
+		} else if(border) {
+			result = '*';
+		}
+		return result;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -163,17 +186,4 @@ public class Coordinate {
 		return "X: " + x + ", Y: " + y;
 	}
 
-	public char printCoordinate() {
-		char result = '-';
-		if(entity != null) {
-			result = entity.getEntityId().charAt(0);
-		} else if(teleporter != null) {
-			result = 'T';
-		} else if(!walkable) {
-			result = '?';
-		} else if(border) {
-			result = '*';
-		}
-		return result;
-	}
 }

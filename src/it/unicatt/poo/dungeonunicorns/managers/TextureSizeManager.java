@@ -12,10 +12,18 @@ import it.unicatt.poo.dungeonunicorns.utils.IOUtils;
  * A class used to manage the resizing of textures across the whole application
  * 
  * @author claudiometelli
+ * @version 1.0.0
  *
  */
 public class TextureSizeManager {
 	
+	/**
+	 * A method used to resize textures
+	 * 
+	 * @param texture - the texture to be resized
+	 * @param multiplier - the multiplier parameter used to resize the texture
+	 * @return the resized texture
+	 */
 	public static Texture resizeTexture(Texture texture, Float multiplier) {
 		Texture result = null;
 		if(!texture.getTextureData().isPrepared()) {
@@ -33,6 +41,12 @@ public class TextureSizeManager {
 		return result;
 	}
 	
+	/**
+	 * A method used to resize player texture reading multiplier from file
+	 * 
+	 * @param texture - the player texture to be resized
+	 * @return the resized player texture
+	 */
 	public static Texture resizePlayer(Texture texture) {
 		Float multiplier = null;
 		try {
@@ -43,6 +57,12 @@ public class TextureSizeManager {
 		return resizeTexture(texture, multiplier);
 	}
 	
+	/**
+	 * A method used to resize monster texture reading multiplier from file
+	 * 
+	 * @param texture - the monster texture to be resized
+	 * @return the resized monster texture
+	 */
 	public static Texture resizeMonster(Texture texture) {
 		Float multiplier = null;
 		try {

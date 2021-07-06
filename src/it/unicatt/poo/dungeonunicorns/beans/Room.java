@@ -15,16 +15,32 @@ import it.unicatt.poo.dungeonunicorns.managers.IdManager;
  *
  */
 public class Room {
-	
+	/**
+	 * the room id to be unique
+	 */
 	private int roomId;
+	
 	/**
 	 * The set of coordinates used to fill the room
 	 */
 	private Coordinate[] coordinates;
 	
+	/**
+	 * The width of the room in coordinates
+	 */
 	private int width;
+	/**
+	 * The height of the room in coordinates
+	 */
 	private int height;
 	
+	/**
+	 * Constructor for the room which assign a new roomId
+	 * and initializes all the coordinates of the room
+	 * 
+	 * @param width - The width of the room in coordinates
+	 * @param height - The height of the room in coordinates
+	 */
 	public Room(int width, int height) {
 		this.roomId = IdManager.getNewId();
 		this.width = width;
@@ -39,22 +55,45 @@ public class Room {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return the roomId
+	 */
 	public int getRoomId() {
 		return roomId;
 	}
 	
+	/**
+	 * 
+	 * @return all the coordinates of the room
+	 */
 	public Coordinate[] getCoordinates() {
 		return coordinates;
 	}
 	
+	/**
+	 * 
+	 * @return The width of the room in Coordinates
+	 */
 	public int getWidth() {
 		return width;
 	}
 	
+	/**
+	 * 
+	 * @return The height of the room in Coordinates
+	 */
 	public int getHeight() {
 		return height;
 	}
 	
+	/**
+	 * give the coordinate in the room at the specified position
+	 * 
+	 * @param x - the position on the x ass of the room
+	 * @param y - the position on the y ass of the room
+	 * @return the coordinate in the position (x, y)
+	 */
 	public Coordinate getCoordinateByPosition(int x, int y) {
 		Coordinate result = null;
 		for(Coordinate coordinate : coordinates) {
@@ -65,6 +104,11 @@ public class Room {
 		return result;
 	}
 	
+	/**
+	 * Prints all the coordinates of the room
+	 * 
+	 * @return a String with the final result of all the coordinates
+	 */
 	public String printRoom() {
 		StringBuilder result = new StringBuilder();
 		for(int i = height - 1; i >= 0; i--) {
@@ -77,9 +121,9 @@ public class Room {
 	}
 	
 	/**
-	 * ritorna le coordinate vicine su cui si può camminare
-	 * @param coordinate
-	 * @return 
+	 * 
+	 * @param coordinate - the coordinate on which you want the near coordinates on which you can walk
+	 * @return the coordinates on which you can walk near the coordinate parameter
 	 */
 	public List<Coordinate> getWalkableBorderingCoordinates(Coordinate coordinate) {
 		List<Coordinate> bordering = getBorderingCoordinates(coordinate);
@@ -89,24 +133,14 @@ public class Room {
 				result.add(borderCoordinate);
 			}
 		}
-		/*
-		List<Coordinate> result = new ArrayList<Coordinate>();
-		if(!(coordinate.getX() == 0 || !getCoordinateByPosition(coordinate.getX() - 1, coordinate.getY()).isWalkable())) {
-			result.add(getCoordinateByPosition(coordinate.getX() - 1, coordinate.getY()));
-		}
-		if(!(coordinate.getX() == width - 1 || !getCoordinateByPosition(coordinate.getX() + 1, coordinate.getY()).isWalkable())) {
-			result.add(getCoordinateByPosition(coordinate.getX() + 1, coordinate.getY()));
-		}
-		if(!(coordinate.getY() == 0 || !getCoordinateByPosition(coordinate.getX(), coordinate.getY() - 1).isWalkable())) {
-			result.add(getCoordinateByPosition(coordinate.getX(), coordinate.getY() - 1));
-		}
-		if(!(coordinate.getY() == height - 1 || !getCoordinateByPosition(coordinate.getX(), coordinate.getY() + 1).isWalkable())) {
-			result.add(getCoordinateByPosition(coordinate.getX(), coordinate.getY() + 1));
-		}
-		*/
 		return result;
 	}
 	
+	/**
+	 * 
+	 * @param coordinate - the coordinate on which you want the near coordinates on which you can't walk
+	 * @return the coordinates on which you can't walk near the coordinate parameter
+	 */
 	public List<Coordinate> getNotWalkableBorderingCoordinates(Coordinate coordinate) {
 		List<Coordinate> bordering = getBorderingCoordinates(coordinate);
 		List<Coordinate> result = new ArrayList<Coordinate>();
@@ -119,9 +153,9 @@ public class Room {
 	}
 	
 	/**
-	 * ritorna le coordinate vicine
-	 * @param coordinate
-	 * @return
+	 * 
+	 * @param coordinate - the coordinate on which you want the near coordinates
+	 * @return the coordinates near the coordinate parameter
 	 */
 	public List<Coordinate> getBorderingCoordinates(Coordinate coordinate){
 		List<Coordinate> result = new ArrayList<Coordinate>();
@@ -152,6 +186,11 @@ public class Room {
 			}
 		}
 		return result;
+	}
+
+	@Override
+	public String toString() {
+		return "Room: " + roomId;
 	}
 	
 }

@@ -1,5 +1,11 @@
 package it.unicatt.poo.dungeonunicorns.beans;
 
+/**
+ * A class which represent a particular room, used only in the demo tests
+ * 
+ * @author claudiometelli
+ *
+ */
 public class SquareRoom extends Room {
 
 	public SquareRoom(int width, int height, int roomStart, int roomWidth) {

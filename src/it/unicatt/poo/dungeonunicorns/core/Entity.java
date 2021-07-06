@@ -9,18 +9,53 @@ import it.unicatt.poo.dungeonunicorns.beans.armors.Armor;
 import it.unicatt.poo.dungeonunicorns.beans.weapons.Weapon;
 import it.unicatt.poo.dungeonunicorns.managers.IdManager;
 
+/**
+ * A class which represent a general entity in the game
+ * For example the player or a monster
+ * 
+ * @author claudiometelli
+ * @version 1.0.0
+ *
+ */
 public abstract class Entity {
 	
+	/**
+	 * The Id of the entity
+	 * Set by the sub-instances of the class
+	 * Used By DemoTest to print coordinates on which there is an entity
+	 */
 	String entityId;
+	/**
+	 * The Id of the specific instance, used to identify a single entity
+	 */
 	private int instanceId;
+	/**
+	 * The amount of life of the entity
+	 */
 	private int life;
 	
+	/**
+	 * The armor of the entity
+	 */
 	private Armor armor;
+	/**
+	 * The weapon used by the entity
+	 */
 	private Weapon weapon;
 	
+	/**
+	 * The coordinate on which the entity is
+	 */
 	private Coordinate currentPosition;
+	/**
+	 * The room in which the entity is
+	 */
 	private Room currentRoom;
 	
+	/**
+	 * 
+	 * @param life - the initial amount of life points of the player
+	 */
 	public Entity(int life) {
 		this.instanceId = IdManager.getNewId();
 		this.life = life;
@@ -79,50 +114,108 @@ public abstract class Entity {
 		return entityId + "; Life: " + life + "; Position: (" + currentPosition.toString() + ")";
 	}
 	
+	/**
+	 * place the entity in a coordinate of a room
+	 * 
+	 * @param room - the room where the entity must be placed
+	 * @param x - the position on the x ass of the coordinate in the room
+	 * @param y - the position on the y ass of the coordinate in the room
+	 */
 	public void placeEntity(Room room, int x, int y) {
 		currentRoom = room;
 		currentPosition = currentRoom.getCoordinateByPosition(x, y);
 		currentPosition.setEntity(this);
 	}
 	
+	/**
+	 * place the entity in a coordinate of a room
+	 * 
+	 * @param room - the room where the entity must be placed
+	 * @param coordinate - the coordinate where the entity must be placed
+	 */
 	public void placeEntity(Room room, Coordinate coordinate) {
 		currentRoom = room;
 		currentPosition = coordinate;
 		currentPosition.setEntity(this);
 	}
 	
+	/**
+	 * move on the right coordinate of the current position
+	 * 
+	 * @return true if the entity has moved, false otherwise
+	 */
 	public boolean moveRight() {
 		return genericMove(1, 0);
 	}
 	
+	/**
+	 * check if can move on the right coordinate
+	 * 
+	 * @return true if the entity can move, false otherwise
+	 */
 	public boolean canMoveRight() {
 		return isMovementAllowed(1, 0);
 	}
 	
+	/**
+	 * move on the left coordinate of the current position
+	 * 
+	 * @return true if the entity has moved, false otherwise
+	 */
 	public boolean moveLeft() {
 		return genericMove(-1, 0);
 	}
 	
+	/**
+	 * check if can move on the left coordinate
+	 * 
+	 * @return true if the entity can move, false otherwise
+	 */
 	public boolean canMoveLeft() {
 		return isMovementAllowed(-1, 0);
 	}
 	
+	/**
+	 * move on the up coordinate of the current position
+	 * 
+	 * @return true if the entity has moved, false otherwise
+	 */
 	public boolean moveUp() {
 		return genericMove(0, 1);
 	}
 	
+	/**
+	 * check if can move on the up coordinate
+	 * 
+	 * @return true if the entity can move, false otherwise
+	 */
 	public boolean canMoveUp() {
 		return isMovementAllowed(0, 1);
 	}
 	
+	/**
+	 * move on the down coordinate of the current position
+	 * 
+	 * @return true if the entity has moved, false otherwise
+	 */
 	public boolean moveDown() {
 		return genericMove(0, -1);
 	}
 	
+	/**
+	 * check if can move on the down coordinate
+	 * 
+	 * @return true if the entity can move, false otherwise
+	 */
 	public boolean canMoveDown() {
 		return isMovementAllowed(0, -1);
 	}
 	
+	/**
+	 * check if there is an entity on the bordering oordinates of the current position
+	 * 
+	 * @return true if there is an entity bordering, false otherwise
+	 */
 	public boolean isAnotherEntityBordering() {
 		boolean result = false;
 		if(!getEntitiesBordering().isEmpty()) {
@@ -131,6 +224,10 @@ public abstract class Entity {
 		return result;
 	}
 	
+	/**
+	 * 
+	 * @return all the entities which are on the bordering coordinates of the current position
+	 */
 	public List<Entity> getEntitiesBordering() {
 		List<Entity> entities = new ArrayList<Entity>();
 		for(Coordinate coordinate : currentRoom.getWalkableBorderingCoordinates(currentPosition)) {
@@ -141,6 +238,13 @@ public abstract class Entity {
 		return entities;
 	}
 	
+	/**
+	 * Check if the movement is allowed at the which you want to move position
+	 * 
+	 * @param horizontal - the number of coordinates to move in the horizontal direction(positive numbers to move right, negative ones to move left) by the current position
+	 * @param vertical - the number of coordinates to move in the vertical direction(positive numbers to move up, negative ones to move down) by the current position
+	 * @return true if the entity can move, false otherwise
+	 */
 	private boolean isMovementAllowed(int horizontal, int vertical) {
 		boolean result = true;
 		if(horizontal == 1 && (currentPosition.isRightBorder() ||
@@ -162,6 +266,11 @@ public abstract class Entity {
 		return result;
 	}
 	
+	/**
+	 * Method used to get damage by the entity
+	 * 
+	 * @param damage the amount of damage to be done to the entity
+	 */
 	public void getDamage(int damage) {
 		int damageDone = 0;
 		if(armor != null) {
@@ -173,6 +282,12 @@ public abstract class Entity {
 		}
 	}
 	
+	/**
+	 * Support method for getDamage
+	 * 
+	 * @param damage
+	 * @return the amount of damage done to the armor
+	 */
 	private int getArmorDamage(int damage) {
 		int result = damage;
 		if(armor.getArmorLife() - damage < 0) {
@@ -181,6 +296,12 @@ public abstract class Entity {
 		return result;
 	}
 	
+	/**
+	 * Support method for getDamage
+	 * 
+	 * @param damage
+	 * @return the amount of damage done to the life points of the entity
+	 */
 	private int getLifeDamage(int damage) {
 		int result = damage;
 		if(life - damage < 0) {
@@ -189,6 +310,13 @@ public abstract class Entity {
 		return result;
 	}
 	
+	/**
+	 * A support method
+	 * 
+	 * @param horizontal
+	 * @param vertical
+	 * @return
+	 */
 	private boolean genericMove(int horizontal, int vertical) {
 		boolean result = isMovementAllowed(horizontal, vertical);
 		if(result) {
@@ -201,6 +329,12 @@ public abstract class Entity {
 		return result;
 	}
 	
+	/**
+	 * Moves the entity into the specified coordinate
+	 * 
+	 * @param coordinate - the coordinate where the entity is going to move
+	 * @return true if the entity has moved, false otherwise
+	 */
 	public boolean moveIntoPosition(Coordinate coordinate) {
 		boolean result = false;
 		if(coordinate.isWalkable()) {
@@ -225,6 +359,12 @@ public abstract class Entity {
 		return result;
 	}
 	
+	/**
+	 * Attack the entity
+	 * 
+	 * @param enemy - the enemy to be attacked
+	 * @return true if the enemy has been attacked, false otherwise
+	 */
 	public abstract boolean attack(Entity enemy);
 	
 }

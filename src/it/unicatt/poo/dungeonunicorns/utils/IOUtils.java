@@ -20,8 +20,8 @@ public class IOUtils {
 	/**
 	 * Reads a file with a list of attributes and return the attribute specified
 	 * 
-	 * @param file the file to be read
-	 * @param attribute the attribute to find
+	 * @param file - the file to be read
+	 * @param attribute - the attribute to find
 	 * @return the value of the attribute
 	 */
 	public static String getAttributeFromConfigFile(Path file, String attribute) throws AttributeNotSpecifiedException {
@@ -48,8 +48,8 @@ public class IOUtils {
 	/**
 	 * Reads a file with a list of attributes and return the attribute specified as integer
 	 * 
-	 * @param file the file to be read
-	 * @param attribute the attribute to find
+	 * @param file - the file to be read
+	 * @param attribute - the attribute to find
 	 * @return the value of the attribute
 	 */
 	public static Integer getIntegerAttributeFromConfigFile(Path file, String attribute) throws AttributeNotSpecifiedException {
@@ -66,7 +66,7 @@ public class IOUtils {
 
 	/**
 	 * Check if a string can be converted into an integer
-	 * @param str the string to be checked
+	 * @param str - the string to be checked
 	 * @return true if integer, false otherwise
 	 */
 	private static boolean isInteger(String str) {
@@ -83,8 +83,8 @@ public class IOUtils {
 	/**
 	 * Reads a file with a list of attributes and return the attribute specified as float
 	 * 
-	 * @param file the file to be read
-	 * @param attribute the attribute to find
+	 * @param file - the file to be read
+	 * @param attribute - the attribute to find
 	 * @return the value of the attribute
 	 */
 	public static Float getFloatAttributeFromConfigFile(Path file, String attribute) throws AttributeNotSpecifiedException {
@@ -115,6 +115,14 @@ public class IOUtils {
 		return result;
 	}
 	
+	/**
+	 * Reads a file with a list of attributes and return the attribute specified as float without throwing errors
+	 * (Use it at your own risk) ;-)
+	 * 
+	 * @param file - the file to be read
+	 * @param attribute - the attribute to find
+	 * @return the value of the attribute
+	 */
 	public static Float getInstantFloatAttributeFromConfigFile(Path file, String attribute) {
 		Float result = null;
 		try {

@@ -2,16 +2,39 @@ package it.unicatt.poo.dungeonunicorns.core;
 
 import it.unicatt.poo.dungeonunicorns.beans.Coordinate;
 
+/**
+ * A class which represent the intelligence of an enemy
+ * 
+ * @author claudiometelli
+ * @version 1.0.0
+ */
 public class EnemyIntelligence {
 	
+	/**
+	 * The entity on which the intelligence is applied
+	 */
 	private Entity enemy;
+	/**
+	 * The player to be defeated by the enemy
+	 */
 	private Player player;
 	
+	/**
+	 * Constructor for EnemyIntelligence
+	 * 
+	 * @param entity - the entity on which the intelligence is applied
+	 * @param player - the player to be defeated by the enemy
+	 */
 	public EnemyIntelligence(Entity entity, Player player) {
 		this.enemy = entity;
 		this.player = player;
 	}
 	
+	/**
+	 * check if the entity is going to move
+	 * 
+	 * @return the direction where the entity is going to move
+	 */
 	public EntityDirection isGoingToMove() {
 		EntityDirection result = EntityDirection.NO_DIRECTION;
 		if(isGoingToMoveRight()) {
@@ -63,7 +86,8 @@ public class EnemyIntelligence {
 	}
 	
 	/**
-	 * Work only in rectangles open squares
+	 * Decides next move to do for the enemy and attack if possible
+	 * Work only in rectangles areas
 	 * TODO Work for better intelligence
 	 * 
 	 * @return true if enemy is moving, false if not
@@ -90,12 +114,12 @@ public class EnemyIntelligence {
 //				}
 //			}
 //		}
+		// attacks if possible
 		for(Coordinate bordering : enemy.getCurrentRoom().getBorderingCoordinates(enemy.getCurrentPosition())) {
 			if(bordering.getEntity() != null && bordering.getEntity().equals(player)) {
 				enemy.attack(player);
 			}
 		}
-		
 		return result;
 	}
 	

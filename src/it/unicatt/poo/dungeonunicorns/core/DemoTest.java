@@ -3,6 +3,12 @@ package it.unicatt.poo.dungeonunicorns.core;
 import it.unicatt.poo.dungeonunicorns.beans.SquareRoom;
 import it.unicatt.poo.dungeonunicorns.beans.Teleporter;
 
+/**
+ * A simple textual demo to check if business logic tier is working
+ * 
+ * @author claudiometelli
+ *
+ */
 public class DemoTest {
 	public static void main(String[] args) {
 		SquareRoom room = new SquareRoom(15, 15, 2, 10);

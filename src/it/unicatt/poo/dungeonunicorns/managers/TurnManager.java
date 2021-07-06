@@ -8,17 +8,45 @@ import java.util.Map;
 import it.unicatt.poo.dungeonunicorns.graphics.entities.TiledEntity;
 import it.unicatt.poo.dungeonunicorns.graphics.entities.TiledMonster;
 
+/**
+ * A class used to manage the turns during the game
+ * 
+ * @author claudiometelli
+ * @version 1.0.0
+ *
+ */
 public class TurnManager {
 	
+	/**
+	 * The entities to manage the turns
+	 */
 	private static List<TiledEntity> entities = new ArrayList<TiledEntity>();
+	/**
+	 * The monsters to manage the turns
+	 */
 	private static List<TiledMonster> monsters = new ArrayList<TiledMonster>();
+	/**
+	 * A map used to manage the turns of the various monster in the game
+	 */
 	private static Map<TiledMonster, Boolean> turnMonstersPlayed = new HashMap<TiledMonster, Boolean>();
+	/**
+	 * The entity which is the turn to play
+	 */
 	private static TiledEntity actualTurnEntity;
 	
+	/**
+	 * 
+	 * @param entity - the entity to be added to the list entities
+	 */
 	public static void addEntity(TiledEntity entity) {
 		entities.add(entity);
 	}
 	
+	/**
+	 * A method which sets the turn to an entity using actualTurnEntity
+	 * 
+	 * @param entity - the entity to set the turn to
+	 */
 	public static void setTurnTo(TiledEntity entity) {
 		if(!entities.contains(entity)) {
 			entities.add(entity);
@@ -27,9 +55,10 @@ public class TurnManager {
 	}
 	
 	/**
+	 * A method to decide which monster has the turn
 	 * 
-	 * @param monsters
-	 * @return monster che ha il turno se no null
+	 * @param monsters - the monsters of the level to decide which one has the turn to play
+	 * @return the monster which the turn must be switched to if is the turn of a monster, null otherwise
 	 */
 	public static TiledMonster setTurnToNextMonster(List<TiledMonster> monsters) {
 		TiledMonster result = null;
@@ -65,11 +94,11 @@ public class TurnManager {
 		return result;
 	}
 	
-	public static void clearForNextGame() {
-		entities.clear();
-		monsters.clear();
-	};
-	
+	/**
+	 * A method which clear the monster from turnMonstersPlayed, entities and monsters if it has been eliminated
+	 * 
+	 * @param monster - the monster which has been eliminated
+	 */
 	public static void deleteMonster(TiledMonster monster) {
 		if(entities.contains(monster)) {
 			entities.remove(monster);
@@ -82,6 +111,12 @@ public class TurnManager {
 		}
 	}
 	
+	/**
+	 * Check if is the entity turn
+	 * 
+	 * @param entity - to entity to check if is its turn
+	 * @return true if is the entity turn, false otherwise
+	 */
 	public static boolean isEntityTurn(TiledEntity entity) {
 		boolean result = false;
 		if(entity.equals(actualTurnEntity)) {
