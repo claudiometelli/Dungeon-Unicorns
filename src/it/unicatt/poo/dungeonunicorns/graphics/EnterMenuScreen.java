@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import it.unicatt.poo.dungeonunicorns.graphics.levels.LevelOne;
+
 public class EnterMenuScreen implements Screen {
 	
 	private final MainGame game;
@@ -16,7 +18,7 @@ public class EnterMenuScreen implements Screen {
 	private Texture backgroundTexture;
 	
 	
-	public EnterMenuScreen(MainGame game) {
+	public EnterMenuScreen(final MainGame game) {
 		this.game = game;
 		game.setEnterMenuScreen(this);
 		this.camera = new OrthographicCamera();
@@ -41,7 +43,9 @@ public class EnterMenuScreen implements Screen {
 		game.getBatch().end();
 
 		if (Gdx.input.isTouched()) {
-			game.setScreen(new GameScreen(game));
+			GameScreen gameScreen = new GameScreen(game);
+			gameScreen.setLevel(new LevelOne());
+			game.setScreen(gameScreen);
 			dispose();
 		}
 	}

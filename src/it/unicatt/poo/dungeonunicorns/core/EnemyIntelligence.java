@@ -93,7 +93,6 @@ public class EnemyIntelligence {
 		for(Coordinate bordering : enemy.getCurrentRoom().getBorderingCoordinates(enemy.getCurrentPosition())) {
 			if(bordering.getEntity() != null && bordering.getEntity().equals(player)) {
 				enemy.attack(player);
-				System.out.println("MONSTER ATTACK: PlayerLife: " + player.getLife() + "EnemyLife: " + enemy.getLife());
 			}
 		}
 		

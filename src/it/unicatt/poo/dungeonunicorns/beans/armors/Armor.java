@@ -11,4 +11,8 @@ public abstract class Armor {
 	public int getArmorLife() {
 		return armorLife;
 	}
+	
+	public void setArmorLife(int armorLife) {
+		this.armorLife = armorLife;
+	}
 }

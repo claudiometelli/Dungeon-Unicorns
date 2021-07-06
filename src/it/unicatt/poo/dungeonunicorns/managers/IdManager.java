@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class EntitiesIdManager {
+public class IdManager {
 	
 	private static int MIN_NUM_ID = 0;
 	private static int MAX_MUM_ID = 1000;

@@ -7,7 +7,7 @@ import it.unicatt.poo.dungeonunicorns.beans.Coordinate;
 import it.unicatt.poo.dungeonunicorns.beans.Room;
 import it.unicatt.poo.dungeonunicorns.beans.armors.Armor;
 import it.unicatt.poo.dungeonunicorns.beans.weapons.Weapon;
-import it.unicatt.poo.dungeonunicorns.managers.EntitiesIdManager;
+import it.unicatt.poo.dungeonunicorns.managers.IdManager;
 
 public abstract class Entity {
 	
@@ -22,7 +22,7 @@ public abstract class Entity {
 	private Room currentRoom;
 	
 	public Entity(int life) {
-		this.instanceId = EntitiesIdManager.getNewId();
+		this.instanceId = IdManager.getNewId();
 		this.life = life;
 	}
 	
@@ -82,6 +82,12 @@ public abstract class Entity {
 	public void placeEntity(Room room, int x, int y) {
 		currentRoom = room;
 		currentPosition = currentRoom.getCoordinateByPosition(x, y);
+		currentPosition.setEntity(this);
+	}
+	
+	public void placeEntity(Room room, Coordinate coordinate) {
+		currentRoom = room;
+		currentPosition = coordinate;
 		currentPosition.setEntity(this);
 	}
 	
@@ -157,7 +163,30 @@ public abstract class Entity {
 	}
 	
 	public void getDamage(int damage) {
-		life -= damage;
+		int damageDone = 0;
+		if(armor != null) {
+			damageDone = getArmorDamage(damage);
+			armor.setArmorLife(armor.getArmorLife() - damageDone);
+		}
+		if(damageDone < damage) {
+			life -= getLifeDamage(damage - damageDone);
+		}
+	}
+	
+	private int getArmorDamage(int damage) {
+		int result = damage;
+		if(armor.getArmorLife() - damage < 0) {
+			result = armor.getArmorLife();
+		}
+		return result;
+	}
+	
+	private int getLifeDamage(int damage) {
+		int result = damage;
+		if(life - damage < 0) {
+			result = life;
+		}
+		return result;
 	}
 	
 	private boolean genericMove(int horizontal, int vertical) {
@@ -166,8 +195,20 @@ public abstract class Entity {
 			int currentX = currentPosition.getX();
 			int currentY = currentPosition.getY();
 			currentPosition.setEntity(null);
-			currentRoom.getCoordinateByPosition(currentX + horizontal, currentY + vertical).setEntity(this);
 			currentPosition = currentRoom.getCoordinateByPosition(currentX + horizontal, currentY + vertical);
+			currentPosition.setEntity(this);
+		}
+		return result;
+	}
+	
+	public boolean moveIntoPosition(Coordinate coordinate) {
+		boolean result = false;
+		if(coordinate.isWalkable()) {
+			currentPosition.setEntity(null);
+			currentRoom = coordinate.getRoom();
+			currentPosition = coordinate;
+			currentPosition.setEntity(this);
+			result = true;
 		}
 		return result;
 	}

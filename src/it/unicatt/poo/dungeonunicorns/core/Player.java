@@ -21,20 +21,7 @@ public class Player extends Entity {
 			}
 			result = true;
 		}
-		System.out.println("PLAYER ATTACK: PlayerLife: " + super.getLife() + "EnemyLife: " + enemy.getLife());
 		return result;
 	}
-	
-//	@Override
-//	public boolean equals(Object obj) {
-//		boolean result = false;
-//		if(obj instanceof Player && obj != null) {
-//			Player object = (Player) obj;
-//			if(entityId.equals(object.getEntityId())) {
-//				result = true;
-//			}
-//		}
-//		return result;
-//	}
 	
 }

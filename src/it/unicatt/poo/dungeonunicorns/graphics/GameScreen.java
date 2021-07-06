@@ -2,14 +2,13 @@ package it.unicatt.poo.dungeonunicorns.graphics;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 
@@ -18,6 +17,7 @@ import it.unicatt.poo.dungeonunicorns.exceptions.AttributeNotSpecifiedException;
 import it.unicatt.poo.dungeonunicorns.graphics.beans.TiledRoom;
 import it.unicatt.poo.dungeonunicorns.graphics.entities.TiledMonster;
 import it.unicatt.poo.dungeonunicorns.graphics.entities.TiledPlayer;
+import it.unicatt.poo.dungeonunicorns.graphics.levels.GenericLevel;
 import it.unicatt.poo.dungeonunicorns.managers.TurnManager;
 import it.unicatt.poo.dungeonunicorns.utils.IOUtils;
 
@@ -35,8 +35,12 @@ public class GameScreen implements Screen {
 
 	private OrthographicCamera camera;
 	private OrthogonalTiledMapRenderer mapRenderer;
+	
+	private GenericLevel level;
+	
 	private TiledRoom room;
 	private TiledPlayer player;
+	private List<TiledMonster> monsters;
 	private TiledMonster monster;
 
 	private float stateTime;
@@ -55,36 +59,43 @@ public class GameScreen implements Screen {
 		} catch (AttributeNotSpecifiedException e) {
 			System.err.println(e.getMessage());
 		}
-		initGameObjects();
-		mapRenderer = new OrthogonalTiledMapRenderer(room.getMap(), unitScale);
-		mapRenderer.setView(camera);
-	}
-
-	public Float getCoordinateSize() {
-		return coordinateSize;
-	}
-
-	/**
-	 * Method to load assets using the asset manager and assign them to the
-	 * properties of the class
-	 */
-	private void initGameObjects() {
 		this.camera = new OrthographicCamera();
 		camera.setToOrtho(false);
-		AssetManager assetManager = new AssetManager();
-		assetManager.setLoader(TiledMap.class, new TmxMapLoader());
-		assetManager.load("assets/maps/ExtraLargeMap.tmx", TiledMap.class);
-		assetManager.finishLoading();
-		room = new TiledRoom(assetManager.get("assets/maps/ExtraLargeMap.tmx"));
 		player = new TiledPlayer();
-		monster = new TiledMonster(player);
+		monsters = new ArrayList<TiledMonster>();
+	}
+
+	public void setLevel(GenericLevel level) {
+		room = level.getRooms().get(0);
+		for(TiledMonster m : level.getMonsters()) {
+			monsters.add(m);
+		}
+		monster = level.getMonsters().get(0);
+		mapRenderer = new OrthogonalTiledMapRenderer(room.getMap(), unitScale);
+		mapRenderer.setView(camera);
 		placeEntities();
 		TurnManager.setTurnTo(player);
 	}
-
+	
 	private void placeEntities() {
-		player.placeEntity(room, 6, 6);
-		monster.placeEntity(room, 8, 8);
+		player.placeEntity(room, room.getSpawningPoint(player));
+		for(TiledMonster m : monsters) {
+			if(m.isInRoom(room)) {
+				m.placeEntity(room, room.getSpawningPoint(m));
+			}
+		}
+	}
+	
+	public Float getCoordinateSize() {
+		return coordinateSize;
+	}
+	
+	public Integer getScreenWidth() {
+		return screenWidth;
+	}
+	
+	public Integer getScreenHeight() {
+		return screenHeight;
 	}
 
 	@Override
@@ -100,15 +111,21 @@ public class GameScreen implements Screen {
 		camera.update();
 		mapRenderer.render();
 		game.getBatch().begin();
+		game.getFont().draw(game.getBatch(), "Player Life: " + player.getPlayer().getLife(), 1000, 500);
+		game.getFont().draw(game.getBatch(), "Monster Life: " + monster.getMonster().getLife(), 1000, 470);
 		game.getBatch().draw(player.getActualAnimation().getKeyFrame(stateTime, true), player.getXPositionEntityArea(),
 				screenHeight - player.getYPositionEntityArea());
-		// https://jvm-gaming.org/t/libgdx-animation-problem/52386
-		if (monster.getActualAnimation().getKeyFrame(stateTime, true) != null) {
-			game.getBatch().draw(monster.getActualAnimation().getKeyFrame(stateTime, true),
-					monster.getXPositionEntityArea(), screenHeight - monster.getYPositionEntityArea());
+		for(TiledMonster m : monsters) {
+			// https://jvm-gaming.org/t/libgdx-animation-problem/52386
+			
+			if (m.isInRoom(room) && m.getActualAnimation().getKeyFrame(stateTime, true) != null) {
+				game.getBatch().draw(m.getActualAnimation().getKeyFrame(stateTime, true),
+						m.getXPositionEntityArea(), screenHeight - m.getYPositionEntityArea());
+			}
 		}
 		game.getBatch().end();
 		checkPlayerMove();
+		checkTeleport();
 		checkMonsterMove();
 	}
 
@@ -116,7 +133,6 @@ public class GameScreen implements Screen {
 		if (Gdx.input.justTouched() && TurnManager.isEntityTurn(player)) {
 			if(monster.getEntityArea().contains(Gdx.input.getX(), Gdx.input.getY() + coordinateSize)) {
 				if(player.attack(monster)) {
-					System.out.println("ATTACCATO");
 					TurnManager.setTurnTo(monster);
 				}
 			}
@@ -130,7 +146,12 @@ public class GameScreen implements Screen {
 			player.moveRight();
 			if (!player.isMoving()) {
 				player.setActualAnimation(player.getStoppedAnimation());
-				TurnManager.setTurnTo(monster);
+				player.setJustTeleport(false);
+				monster = TurnManager.setTurnToNextMonster(monsters);
+				if(monster == null) {
+					monster = monsters.get(0);
+					TurnManager.setTurnTo(player);
+				}
 			}
 		}
 
@@ -142,7 +163,12 @@ public class GameScreen implements Screen {
 			player.moveLeft();
 			if (!player.isMoving()) {
 				player.setActualAnimation(player.getStoppedAnimation());
-				TurnManager.setTurnTo(monster);
+				player.setJustTeleport(false);
+				monster = TurnManager.setTurnToNextMonster(monsters);
+				if(monster == null) {
+					monster = monsters.get(0);
+					TurnManager.setTurnTo(player);
+				}
 			}
 		}
 
@@ -154,7 +180,12 @@ public class GameScreen implements Screen {
 			player.moveUp();
 			if (!player.isMoving()) {
 				player.setActualAnimation(player.getStoppedAnimation());
-				TurnManager.setTurnTo(monster);
+				player.setJustTeleport(false);
+				monster = TurnManager.setTurnToNextMonster(monsters);
+				if(monster == null) {
+					monster = monsters.get(0);
+					TurnManager.setTurnTo(player);
+				}
 			}
 		}
 
@@ -166,7 +197,21 @@ public class GameScreen implements Screen {
 			player.moveDown();
 			if (!player.isMoving()) {
 				player.setActualAnimation(player.getStoppedAnimation());
-				TurnManager.setTurnTo(monster);
+				player.setJustTeleport(false);
+				monster = TurnManager.setTurnToNextMonster(monsters);
+				if(monster == null) {
+					monster = monsters.get(0);
+					TurnManager.setTurnTo(player);
+				}
+			}
+		}
+	}
+	
+	private void checkTeleport() {
+		if(player.getPlayer().getCurrentPosition().getTeleporter() != null && !player.isJustTeleport()) {
+			if(player.getPlayer().getCurrentPosition().getTeleporter().getTeleportingPoint1().getRoom().equals(
+					player.getPlayer().getCurrentPosition().getTeleporter().getTeleportingPoint2().getRoom())){
+				player.teleport();
 			}
 		}
 	}
@@ -187,12 +232,20 @@ public class GameScreen implements Screen {
 			monster.nextMove();
 			if (!monster.isMoving()) {
 				monster.setActualAnimation(monster.getStoppedAnimation());
-				TurnManager.setTurnTo(player);
+				monster = TurnManager.setTurnToNextMonster(monsters);
+				if(monster == null) {
+					monster = monsters.get(0);
+					TurnManager.setTurnTo(player);
+				}
 			}
 		}
 		if (TurnManager.isEntityTurn(monster) && !monster.isNextMoveMoving()) {
 			monster.nextMove();
-			TurnManager.setTurnTo(player);
+			monster = TurnManager.setTurnToNextMonster(monsters);
+			if(monster == null) {
+				monster = monsters.get(0);
+				TurnManager.setTurnTo(player);
+			}
 		}
 	}
 
@@ -225,4 +278,8 @@ public class GameScreen implements Screen {
 		mapRenderer.dispose();
 	}
 
+	public TiledPlayer getPlayer() {
+		return player;
+	}
+	
 }

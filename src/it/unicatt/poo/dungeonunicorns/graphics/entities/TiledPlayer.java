@@ -11,6 +11,8 @@ import it.unicatt.poo.dungeonunicorns.managers.TextureSizeManager;
 
 public class TiledPlayer extends TiledEntity {
 	
+	private boolean justTeleport;
+	
 	public TiledPlayer() {
 		super();
 		super.setEntity(new Player());
@@ -23,6 +25,34 @@ public class TiledPlayer extends TiledEntity {
 	
 	public boolean attack(TiledEntity entity) {
 		return getPlayer().attack(entity.getEntity());
+	}
+	
+	public boolean isJustTeleport() {
+		return justTeleport;
+	}
+	
+	public void setJustTeleport(boolean justTeleport) {
+		this.justTeleport = justTeleport;
+	}
+	
+	public boolean teleport() {
+		boolean result = false;
+		if(!justTeleport) {
+			super.getCoordinate().setEntity(null);
+			result = getPlayer().getCurrentPosition().getTeleporter().teleport();
+			if(result) {
+				super.setXPositionEntityArea(getPlayer().getCurrentPosition().getX() * MainGame.getInstance().getGameScreen().getCoordinateSize());
+				super.setYPositionEntityArea(MainGame.getInstance().getGameScreen().getScreenHeight() - 
+						getPlayer().getCurrentPosition().getY() * MainGame.getInstance().getGameScreen().getCoordinateSize());
+				super.setCoordinate(super.getRoom().getCoordinateByPosition(super.getEntity().getCurrentPosition()));
+				super.getCoordinate().setEntity(this);
+				justTeleport = true;
+			} else {
+				super.getCoordinate().setEntity(this);
+			}
+			
+		}
+		return result;
 	}
 
 	public boolean moveRight() {

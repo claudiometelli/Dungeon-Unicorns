@@ -3,6 +3,8 @@ package it.unicatt.poo.dungeonunicorns.beans;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.unicatt.poo.dungeonunicorns.managers.IdManager;
+
 /**
  * A class which represent a room of a dungeon in the game
  * A room is always represented like a Rectangle with width and height
@@ -13,6 +15,8 @@ import java.util.List;
  *
  */
 public class Room {
+	
+	private int roomId;
 	/**
 	 * The set of coordinates used to fill the room
 	 */
@@ -20,19 +24,23 @@ public class Room {
 	
 	private int width;
 	private int height;
-	private Coordinate spawningPoint;
 	
 	public Room(int width, int height) {
+		this.roomId = IdManager.getNewId();
 		this.width = width;
 		this.height = height;
 		this.coordinates = new Coordinate[width * height];
 		int counter = 0;
 		for(int i = 0; i < width; i++) {
 			for(int j = 0; j < height; j++) {
-				coordinates[counter] = new Coordinate(i, j);
+				coordinates[counter] = new Coordinate(this, i, j);
 				counter++;
 			}
 		}
+	}
+	
+	public int getRoomId() {
+		return roomId;
 	}
 	
 	public Coordinate[] getCoordinates() {
@@ -45,14 +53,6 @@ public class Room {
 	
 	public int getHeight() {
 		return height;
-	}
-	
-	public Coordinate getSpawningPoint() {
-		return spawningPoint;
-	}
-	
-	public void setSpawningPoint(Coordinate spawningPoint) {
-		this.spawningPoint = spawningPoint;
 	}
 	
 	public Coordinate getCoordinateByPosition(int x, int y) {
@@ -138,6 +138,18 @@ public class Room {
 		}
 		if(y != height - 1) {
 			result.add(getCoordinateByPosition(x, y + 1));
+		}
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		boolean result = false;
+		if(obj instanceof Room && obj != null) {
+			Room object = (Room) obj;
+			if(object.getRoomId() == roomId) {
+				result = true;
+			}
 		}
 		return result;
 	}
