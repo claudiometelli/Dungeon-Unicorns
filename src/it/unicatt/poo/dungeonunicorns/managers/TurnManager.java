@@ -70,6 +70,18 @@ public class TurnManager {
 		monsters.clear();
 	};
 	
+	public static void deleteMonster(TiledMonster monster) {
+		if(entities.contains(monster)) {
+			entities.remove(monster);
+		}
+		if(monsters.contains(monster)) {
+			monsters.remove(monster);
+		}
+		if(turnMonstersPlayed.containsKey(monster)) {
+			turnMonstersPlayed.remove(monster);
+		}
+	}
+	
 	public static boolean isEntityTurn(TiledEntity entity) {
 		boolean result = false;
 		if(entity.equals(actualTurnEntity)) {

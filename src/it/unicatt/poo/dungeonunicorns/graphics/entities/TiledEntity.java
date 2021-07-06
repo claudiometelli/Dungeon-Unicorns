@@ -229,6 +229,13 @@ public abstract class TiledEntity {
 		return this.room.getRoom().equals(room.getRoom());
 	}
 	
+	public void deleteEntity() {
+		coordinate.setEntity(null);
+		entity.getCurrentPosition().setEntity(null);
+		texture.dispose();
+		entityArea = null;
+	}
+	
 //	public boolean moveRight() {
 //		boolean result = entity.canMoveRight();
 //		if(!moving && result) {
