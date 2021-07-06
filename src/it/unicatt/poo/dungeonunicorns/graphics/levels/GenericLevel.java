@@ -6,6 +6,13 @@ import java.util.List;
 import it.unicatt.poo.dungeonunicorns.graphics.beans.TiledRoom;
 import it.unicatt.poo.dungeonunicorns.graphics.entities.TiledMonster;
 
+/**
+ * A class which define a generic level
+ * 
+ * @author elisamangiavacca
+ * @version 1.0.0
+ *
+ */
 public abstract class GenericLevel {
 	
 	private List<TiledRoom> rooms;

@@ -10,6 +10,13 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import it.unicatt.poo.dungeonunicorns.graphics.levels.LevelOne;
 import it.unicatt.poo.dungeonunicorns.graphics.levels.LevelTwo;
 
+/**
+ * A class that launches the game's enter menu screen on the screen
+ * 
+ * @author elisamangiavacca
+ * @version 1.0.0
+ *
+ */
 public class EnterMenuScreen implements Screen {
 	
 	private final MainGame game;
@@ -17,7 +24,7 @@ public class EnterMenuScreen implements Screen {
 	private OrthographicCamera camera;
 	private Texture backgroundTexture;
 	
-	
+	/* The image is loaded as a screen*/
 	public EnterMenuScreen(final MainGame game) {
 		this.game = game;
 		game.setEnterMenuScreen(this);
@@ -31,6 +38,8 @@ public class EnterMenuScreen implements Screen {
 		// TODO Auto-generated method stub
 	}
 
+	/* In this method we define the menu screen,
+	 * when the menu opens there is a choice to be made: play level 1 or level 2 */
 	@Override
 	public void render(float delta) {
 		camera.update();
@@ -41,13 +50,16 @@ public class EnterMenuScreen implements Screen {
 		// TODO cambiare il font e il colore della scritta
 		game.getFont().draw(game.getBatch(), "Press 1 for level 1\nPress 2 for level 2", (Gdx.graphics.getWidth() / 5) * 4, 50);
 		game.getBatch().end();
-
+		
+		// if the choice is 1:
 		if(Gdx.input.isKeyJustPressed(Keys.NUM_1)) {
 			GameScreen gameScreen = new GameScreen(game);
 			gameScreen.setLevel(new LevelOne());
 			game.setScreen(gameScreen);
 			dispose();
 		}
+		
+		// if the choice is 2:
 		if(Gdx.input.isKeyJustPressed(Keys.NUM_2)) {
 			GameScreen gameScreen = new GameScreen(game);
 			gameScreen.setLevel(new LevelTwo());

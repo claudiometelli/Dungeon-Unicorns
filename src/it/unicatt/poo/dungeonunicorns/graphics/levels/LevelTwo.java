@@ -12,6 +12,13 @@ import it.unicatt.poo.dungeonunicorns.graphics.MainGame;
 import it.unicatt.poo.dungeonunicorns.graphics.beans.TiledRoom;
 import it.unicatt.poo.dungeonunicorns.graphics.entities.TiledMonster;
 
+/**
+ * A class in which level 2 of the game is defined
+ * 
+ * @author elisamangiavacca
+ * @version 1.0.0
+ *
+ */
 public class LevelTwo extends GenericLevel {
 	
 	@Override

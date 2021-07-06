@@ -10,6 +10,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+/**
+ * A class that throws a different screen
+ * depending on whether the user has won or lost
+ * 
+ * @author elisamangiavacca
+ * @version 1.0.0
+ *
+ */
 public class WinGameOverScreen  implements Screen {
 	
 	private final MainGame game;
@@ -26,12 +34,14 @@ public class WinGameOverScreen  implements Screen {
 		this.camera = new OrthographicCamera();
 		camera.setToOrtho(false);
 		AssetManager manager = new AssetManager();
+		// if win: YOU WIN!
 		if(win) {
 			manager.load("images/Win.png", Texture.class);
 			manager.load("assets/music/win_music.mp3", Music.class);
 			manager.finishLoading();
 			backgroundTexture = manager.get("images/Win.png");
 			music = manager.get("assets/music/win_music.mp3");
+		// else: GAME OVER!
 		} else {
 			manager.load("images/GameOver.png", Texture.class);
 			manager.load("assets/music/game_over_music.mp3", Music.class);
@@ -48,6 +58,7 @@ public class WinGameOverScreen  implements Screen {
 		
 	}
 
+	/*In this method the user can choose whether to quit or play again*/
 	@Override
 	public void render(float delta) {
 		camera.update();

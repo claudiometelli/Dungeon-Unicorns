@@ -13,6 +13,13 @@ import it.unicatt.poo.dungeonunicorns.beans.Room;
 import it.unicatt.poo.dungeonunicorns.graphics.MainGame;
 import it.unicatt.poo.dungeonunicorns.graphics.entities.TiledEntity;
 
+/**
+ * A class which define the room as we see it in the game
+ * 
+ * @author elisamangiavacca
+ * @version 1.0.0
+ *
+ */
 public class TiledRoom {
 
 	private TiledMap map;

@@ -23,6 +23,14 @@ import it.unicatt.poo.dungeonunicorns.graphics.levels.GenericLevel;
 import it.unicatt.poo.dungeonunicorns.managers.TurnManager;
 import it.unicatt.poo.dungeonunicorns.utils.IOUtils;
 
+/**
+ * A class that launches the game's screen on the screen
+ * 
+ * 
+ * @author elisamangiavacca
+ * @version 1.0.0
+ *
+ */
 public class GameScreen implements Screen {
 
 	private final static String SCALE_CONFIG_PATH = "configfiles/ScaleConfig.txt";
@@ -148,6 +156,7 @@ public class GameScreen implements Screen {
 		checkWinGameOver();
 	}
 
+	// Method that verifies that the player attacked 
 	private void checkPlayerAttack() {
 		if (Gdx.input.justTouched() && TurnManager.isEntityTurn(player)) {
 			for (TiledMonster m : monsters) {

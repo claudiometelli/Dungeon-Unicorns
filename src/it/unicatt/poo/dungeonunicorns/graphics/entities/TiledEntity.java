@@ -15,6 +15,13 @@ import it.unicatt.poo.dungeonunicorns.graphics.beans.TiledCoordinate;
 import it.unicatt.poo.dungeonunicorns.graphics.beans.TiledRoom;
 import it.unicatt.poo.dungeonunicorns.utils.IOUtils;
 
+/**
+ * A class which describe the game entities as we will see them in the game
+ * 
+ * @author elisamangiavacca
+ * @version 1.0.0
+ *
+ */
 public abstract class TiledEntity {
 	
 	final static int NUMBER_OF_ANIMATIONS_DURING_MOVEMENT = 16;
@@ -235,98 +242,6 @@ public abstract class TiledEntity {
 		texture.dispose();
 		entityArea = null;
 	}
-	
-//	public boolean moveRight() {
-//		boolean result = entity.canMoveRight();
-//		if(!moving && result) {
-//			arrivingPoint = entityArea.x + MainGame.getInstance().getGameScreen().getCoordinateSize();
-//			actualDirection = EntityDirection.RIGHT;
-//			moving = true;
-//		}
-//		if(result) {
-//			entityArea.x += (MainGame.getInstance().getGameScreen().getCoordinateSize() / NUMBER_OF_ANIMATIONS_DURING_MOVEMENT);
-//			if(entityArea.x >= arrivingPoint) {
-//				entityArea.x = arrivingPoint;
-//				coordinate.setEntity(null);
-//				entity.moveRight();
-//				System.out.println(entity.getCurrentPosition().toString());
-//				coordinate = room.getCoordinateByPosition(entity.getCurrentPosition());
-//				coordinate.setEntity(this);
-//				actualDirection = EntityDirection.NO_DIRECTION;
-//				moving = false;
-//			}
-//		}
-//		return result;
-//	}
-//	
-//	public boolean moveLeft() {
-//		boolean result = entity.canMoveLeft();
-//		if(!moving && result) {
-//			arrivingPoint = entityArea.x - MainGame.getInstance().getGameScreen().getCoordinateSize();
-//			actualDirection = EntityDirection.LEFT;
-//			moving = true;
-//		}
-//		if(result) {
-//			entityArea.x -= (MainGame.getInstance().getGameScreen().getCoordinateSize() / NUMBER_OF_ANIMATIONS_DURING_MOVEMENT);
-//			if(entityArea.x <= arrivingPoint) {
-//				entityArea.x = arrivingPoint;
-//				coordinate.setEntity(null);
-//				entity.moveLeft();
-//				System.out.println(entity.getCurrentPosition().toString());
-//				coordinate = room.getCoordinateByPosition(entity.getCurrentPosition());
-//				coordinate.setEntity(this);
-//				actualDirection = EntityDirection.NO_DIRECTION;
-//				moving = false;
-//			}
-//		}
-//		return result;
-//	}
-//	
-//	public boolean moveUp() {
-//		boolean result = entity.canMoveUp();
-//		if(!moving && result) {
-//			arrivingPoint = entityArea.y - MainGame.getInstance().getGameScreen().getCoordinateSize();
-//			actualDirection = EntityDirection.UP;
-//			moving = true;
-//		}
-//		if(result) {
-//			entityArea.y -= (MainGame.getInstance().getGameScreen().getCoordinateSize() / NUMBER_OF_ANIMATIONS_DURING_MOVEMENT);
-//			if(entityArea.y <= arrivingPoint) {
-//				entityArea.y = arrivingPoint;
-//				coordinate.setEntity(null);
-//				entity.moveUp();
-//				System.out.println(entity.getCurrentPosition().toString());
-//				coordinate = room.getCoordinateByPosition(entity.getCurrentPosition());
-//				coordinate.setEntity(this);
-//				actualDirection = EntityDirection.NO_DIRECTION;
-//				moving = false;
-//			}
-//		}
-//		return result;
-//	}
-//	
-//	public boolean moveDown() {
-//		boolean result = entity.canMoveDown();
-//		if(!moving && result) {
-//			arrivingPoint = entityArea.y + MainGame.getInstance().getGameScreen().getCoordinateSize();
-//			actualDirection = EntityDirection.DOWN;
-//			moving = true;
-//		}
-//		if(result) {
-//			entityArea.y += (MainGame.getInstance().getGameScreen().getCoordinateSize() / NUMBER_OF_ANIMATIONS_DURING_MOVEMENT);
-//			if(entityArea.y >= arrivingPoint) {
-//				entityArea.y = arrivingPoint;
-//				coordinate.setEntity(null);
-//				entity.moveDown();
-//				System.out.println(entity.getCurrentPosition().toString());
-//				coordinate = room.getCoordinateByPosition(entity.getCurrentPosition());
-//				coordinate.setEntity(this);
-//				actualDirection = EntityDirection.NO_DIRECTION;
-//				moving = false;
-//			}
-//		}
-//		return result;
-//	}
 	
 	protected abstract void readTexturesAndAssign();
 }

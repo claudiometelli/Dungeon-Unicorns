@@ -4,6 +4,14 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+/**
+ * A class where we define the batch and the font,
+ * which we will need in other classes
+ * 
+ * @author elisamangiavacca
+ * @version 1.0.0
+ *
+ */
 public class MainGame extends Game {
 	
 	private static MainGame instance;
@@ -36,6 +44,8 @@ public class MainGame extends Game {
 		}
 		return instance;
 	}
+	
+	// Some getter and setter method
 	
 	public SpriteBatch getBatch() {
 		return batch;

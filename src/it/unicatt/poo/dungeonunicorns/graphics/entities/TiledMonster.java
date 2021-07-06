@@ -9,6 +9,14 @@ import it.unicatt.poo.dungeonunicorns.core.Monster;
 import it.unicatt.poo.dungeonunicorns.graphics.MainGame;
 import it.unicatt.poo.dungeonunicorns.managers.TextureSizeManager;
 
+/**
+ * A class which extend TiledEntity
+ * define the monster as we see it in the game
+ * 
+ * @author elisamangiavacca
+ * @version 1.0.0
+ *
+ */
 public class TiledMonster extends TiledEntity {
 	
 	public TiledMonster(TiledPlayer player) {

@@ -12,6 +12,13 @@ import it.unicatt.poo.dungeonunicorns.graphics.MainGame;
 import it.unicatt.poo.dungeonunicorns.graphics.beans.TiledRoom;
 import it.unicatt.poo.dungeonunicorns.graphics.entities.TiledMonster;
 
+/**
+ * A class in which level 1 of the game is defined
+ * 
+ * @author elisamangiavacca
+ * @version 1.0.0
+ *
+ */
 public class LevelOne extends GenericLevel {
 
 	@Override
@@ -24,6 +31,7 @@ public class LevelOne extends GenericLevel {
 		TiledRoom room = new TiledRoom(assetManager.get("assets/maps/ExtraLargeMap.tmx"));
 		result.add(room);
 		room.setSpawningPoint(room.getCoordinateByPosition(2, 10), MainGame.getInstance().getGameScreen().getPlayer());
+		// teleport is defined in these coordinates
 		Teleporter.createTeleporter(room.getRoom().getCoordinateByPosition(4, 5), room.getRoom().getCoordinateByPosition(15, 10));
 		return result;
 	}

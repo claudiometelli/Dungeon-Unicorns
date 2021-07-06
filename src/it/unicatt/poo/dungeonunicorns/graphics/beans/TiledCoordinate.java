@@ -5,6 +5,13 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import it.unicatt.poo.dungeonunicorns.beans.Coordinate;
 import it.unicatt.poo.dungeonunicorns.graphics.entities.TiledEntity;
 
+/**
+ * A class which define the coordinate as we see it in the game
+ * 
+ * @author elisamangiavacca
+ * @version 1.0.0
+ *
+ */
 public class TiledCoordinate {
 	
 	/**
