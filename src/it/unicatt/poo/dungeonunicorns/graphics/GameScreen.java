@@ -122,6 +122,8 @@ public class GameScreen implements Screen {
 
 	}
 
+	/*With this method i keep writing the scores of the player 
+	 * and the monsters on the screen*/
 	@Override
 	public void render(float delta) {
 		ScreenUtils.clear(0, 0, 0, 1);
@@ -176,6 +178,7 @@ public class GameScreen implements Screen {
 		}
 	}
 
+	// Method that verifies that the monster is dead 
 	private void checkDeadMonsters() {
 		List<TiledMonster> monstersCopy = new ArrayList<TiledMonster>(monsters);
 		for(TiledMonster m : monstersCopy) {
@@ -187,6 +190,7 @@ public class GameScreen implements Screen {
 		}
 	}
 
+	// Method that verifies the player's move
 	private void checkPlayerMove() {
 		if (Gdx.input.isKeyJustPressed(Keys.D) && !player.isMoving() && TurnManager.isEntityTurn(player)) {
 			if (player.moveRight()) {
@@ -265,6 +269,7 @@ public class GameScreen implements Screen {
 		}
 	}
 
+	// Method that verifies teleport
 	private void checkTeleport() {
 		if (player.getPlayer().getCurrentPosition().getTeleporter() != null && !player.isJustTeleport()) {
 			if (player.getPlayer().getCurrentPosition().getTeleporter().getTeleportingPoint1().getRoom()
@@ -274,6 +279,7 @@ public class GameScreen implements Screen {
 		}
 	}
 
+	// Method that verifies the monster's move
 	private void checkMonsterMove() {
 		if(monster != null) {
 			if (TurnManager.isEntityTurn(monster) && monster.isNextMoveMoving() && !monster.isMoving()) {
@@ -313,6 +319,7 @@ public class GameScreen implements Screen {
 		}
 	}
 	
+	// Method that verifies that is either victory or defeat
 	private void checkWinGameOver() {
 		if(player.getPlayer().getLife() == 0 || monsters.isEmpty()) {
 			boolean result = false;
