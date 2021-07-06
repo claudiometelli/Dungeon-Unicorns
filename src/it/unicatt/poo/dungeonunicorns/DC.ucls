@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <package id="1" language="java" name="it.unicatt.poo.dungeonunicorns.beans" project="Dungeon-Unicorns" 
+    file="/Dungeon-Unicorns/src/it/unicatt/poo/dungeonunicorns/beans" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="794" width="917" x="-175" y="-319"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="2" language="java" name="it.unicatt.poo.dungeonunicorns.core" project="Dungeon-Unicorns" 
+    file="/Dungeon-Unicorns/src/it/unicatt/poo/dungeonunicorns/core" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="826" width="708" x="893" y="-306"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="3" language="java" name="it.unicatt.poo.dungeonunicorns.exceptions" project="Dungeon-Unicorns" 
+    file="/Dungeon-Unicorns/src/it/unicatt/poo/dungeonunicorns/exceptions" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="235" width="406" x="-193" y="533"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="4" language="java" name="it.unicatt.poo.dungeonunicorns.graphics" project="Dungeon-Unicorns" 
+    file="/Dungeon-Unicorns/src/it/unicatt/poo/dungeonunicorns/graphics" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="439" width="588" x="302" y="522"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="5" language="java" name="it.unicatt.poo.dungeonunicorns.managers" project="Dungeon-Unicorns" 
+    file="/Dungeon-Unicorns/src/it/unicatt/poo/dungeonunicorns/managers" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="405" width="551" x="951" y="570"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="6" language="java" name="it.unicatt.poo.dungeonunicorns.utils" project="Dungeon-Unicorns" 
+    file="/Dungeon-Unicorns/src/it/unicatt/poo/dungeonunicorns/utils" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="344" width="409" x="-195" y="779"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="7" language="java" name="it.unicatt.poo.dungeonunicorns.utils.IOUtils" project="Dungeon-Unicorns" 
+    file="/Dungeon-Unicorns/src/it/unicatt/poo/dungeonunicorns/utils/IOUtils.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4" y="970"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="it.unicatt.poo.dungeonunicorns.exceptions.AttributeNotSpecifiedException" 
+    project="Dungeon-Unicorns" 
+    file="/Dungeon-Unicorns/src/it/unicatt/poo/dungeonunicorns/exceptions/AttributeNotSpecifiedException.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="-2" y="680"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="it.unicatt.poo.dungeonunicorns.beans.Coordinate" project="Dungeon-Unicorns" 
+    file="/Dungeon-Unicorns/src/it/unicatt/poo/dungeonunicorns/beans/Coordinate.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="508" y="127"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="it.unicatt.poo.dungeonunicorns.beans.Dungeon" project="Dungeon-Unicorns" 
+    file="/Dungeon-Unicorns/src/it/unicatt/poo/dungeonunicorns/beans/Dungeon.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="-54" y="-171"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="it.unicatt.poo.dungeonunicorns.beans.Room" project="Dungeon-Unicorns" 
+    file="/Dungeon-Unicorns/src/it/unicatt/poo/dungeonunicorns/beans/Room.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="36" y="177"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="it.unicatt.poo.dungeonunicorns.beans.SquareRoom" project="Dungeon-Unicorns" 
+    file="/Dungeon-Unicorns/src/it/unicatt/poo/dungeonunicorns/beans/SquareRoom.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="114" y="419"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="it.unicatt.poo.dungeonunicorns.beans.Teleporter" project="Dungeon-Unicorns" 
+    file="/Dungeon-Unicorns/src/it/unicatt/poo/dungeonunicorns/beans/Teleporter.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="204" y="-147"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="14">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="15" name="coordinates"/>      
+      <multiplicity id="16" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="17">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="18" name="room"/>      
+      <multiplicity id="19" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="20">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="21" name="rooms"/>      
+      <multiplicity id="22" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="23">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="24" name="teleporter"/>      
+      <multiplicity id="25" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="26">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="11"/>  
+  </generalization>  
+  <association id="27">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="28" name="teleportingPoint1"/>      
+      <multiplicity id="29" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="30">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="31" name="teleportingPoint2"/>      
+      <multiplicity id="32" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
