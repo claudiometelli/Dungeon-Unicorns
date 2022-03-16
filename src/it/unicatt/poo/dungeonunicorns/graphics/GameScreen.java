@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-import it.unicatt.poo.dungeonunicorns.core.EntityDirection;
+import it.unicatt.poo.dungeonunicorns.beans.enums.EntityDirection;
 import it.unicatt.poo.dungeonunicorns.exceptions.AttributeNotSpecifiedException;
 import it.unicatt.poo.dungeonunicorns.graphics.beans.TiledRoom;
 import it.unicatt.poo.dungeonunicorns.graphics.entities.TiledMonster;
@@ -79,8 +79,8 @@ public class GameScreen implements Screen {
 		music = manager.get("assets/music/game_music.mp3");
 		player = new TiledPlayer();
 		monsters = new ArrayList<TiledMonster>();
-		music.setLooping(true);
-		music.play();
+		//music.setLooping(true);
+		//music.play();
 	}
 
 	public void setLevel(GenericLevel level) {
@@ -102,6 +102,7 @@ public class GameScreen implements Screen {
 				m.placeEntity(room, room.getSpawningPoint(m));
 			}
 		}
+		System.out.println(room.getRoom().printRoom());
 	}
 
 	public Float getCoordinateSize() {
@@ -121,9 +122,8 @@ public class GameScreen implements Screen {
 		// TODO Auto-generated method stub
 
 	}
-
-	/*With this method i keep writing the scores of the player 
-	 * and the monsters on the screen*/
+	
+	
 	@Override
 	public void render(float delta) {
 		ScreenUtils.clear(0, 0, 0, 1);
@@ -132,14 +132,12 @@ public class GameScreen implements Screen {
 		mapRenderer.render();
 		game.getBatch().begin();
 		game.getFont().draw(game.getBatch(), "Player Life: " + player.getPlayer().getLife(), 1000, 500);
-		game.getBatch().draw(player.getActualAnimation().getKeyFrame(stateTime, true), player.getXPositionEntityArea(),
-				screenHeight - player.getYPositionEntityArea());
+		game.getBatch().draw(player.getActualAnimation().getKeyFrame(stateTime, true), player.getXPositionEntityArea(), player.getYPositionEntityArea());
 		int distance = 0;
 		for (TiledMonster m : monsters) {
 			// https://jvm-gaming.org/t/libgdx-animation-problem/52386
 			if (m.isInRoom(room) && m.getActualAnimation().getKeyFrame(stateTime, true) != null) {
-				game.getBatch().draw(m.getActualAnimation().getKeyFrame(stateTime, true), m.getXPositionEntityArea(),
-						screenHeight - m.getYPositionEntityArea());
+				game.getBatch().draw(m.getActualAnimation().getKeyFrame(stateTime, true), m.getXPositionEntityArea(), m.getYPositionEntityArea());
 				if (m.getMonster().getArmor() != null) {
 					game.getFont().draw(game.getBatch(), "Monster Life: " + m.getMonster().getLife() + ", Armor: "
 							+ m.getMonster().getArmor().getArmorLife(), 1000, 470 - distance);
@@ -155,6 +153,7 @@ public class GameScreen implements Screen {
 		checkPlayerMove();
 		checkTeleport();
 		checkMonsterMove();
+		
 		checkWinGameOver();
 	}
 
@@ -162,7 +161,7 @@ public class GameScreen implements Screen {
 	private void checkPlayerAttack() {
 		if (Gdx.input.justTouched() && TurnManager.isEntityTurn(player)) {
 			for (TiledMonster m : monsters) {
-				if (m.getEntityArea().contains(Gdx.input.getX(), Gdx.input.getY() + coordinateSize)) {
+				if (m.getEntityArea().contains(Gdx.input.getX(), screenHeight - Gdx.input.getY())) {
 					if (player.attack(m)) {
 						monster = TurnManager.setTurnToNextMonster(monsters);
 						if (monster == null) {
@@ -219,6 +218,7 @@ public class GameScreen implements Screen {
 			player.moveLeft();
 			if (!player.isMoving()) {
 				player.setActualAnimation(player.getStoppedAnimation());
+				System.out.println(room.getRoom().printRoom());
 				player.setJustTeleport(false);
 				monster = TurnManager.setTurnToNextMonster(monsters);
 				if (monster == null) {
@@ -238,6 +238,7 @@ public class GameScreen implements Screen {
 			player.moveUp();
 			if (!player.isMoving()) {
 				player.setActualAnimation(player.getStoppedAnimation());
+				System.out.println(room.getRoom().printRoom());
 				player.setJustTeleport(false);
 				monster = TurnManager.setTurnToNextMonster(monsters);
 				if (monster == null) {
@@ -257,6 +258,7 @@ public class GameScreen implements Screen {
 			player.moveDown();
 			if (!player.isMoving()) {
 				player.setActualAnimation(player.getStoppedAnimation());
+				System.out.println(room.getRoom().printRoom());
 				player.setJustTeleport(false);
 				monster = TurnManager.setTurnToNextMonster(monsters);
 				if (monster == null) {
@@ -304,6 +306,7 @@ public class GameScreen implements Screen {
 						}
 						TurnManager.setTurnTo(player);
 					}
+					System.out.println(room.getRoom().printRoom());
 				}
 			}
 			if (TurnManager.isEntityTurn(monster) && !monster.isNextMoveMoving()) {

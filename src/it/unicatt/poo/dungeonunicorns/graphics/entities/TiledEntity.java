@@ -8,8 +8,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
 import it.unicatt.poo.dungeonunicorns.beans.Coordinate;
+import it.unicatt.poo.dungeonunicorns.beans.enums.EntityDirection;
 import it.unicatt.poo.dungeonunicorns.core.Entity;
-import it.unicatt.poo.dungeonunicorns.core.EntityDirection;
 import it.unicatt.poo.dungeonunicorns.graphics.MainGame;
 import it.unicatt.poo.dungeonunicorns.graphics.beans.TiledCoordinate;
 import it.unicatt.poo.dungeonunicorns.graphics.beans.TiledRoom;

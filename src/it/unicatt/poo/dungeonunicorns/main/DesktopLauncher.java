@@ -1,4 +1,4 @@
-package it.unicatt.poo.dungeonunicorns.core;
+package it.unicatt.poo.dungeonunicorns.main;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

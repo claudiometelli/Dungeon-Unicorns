@@ -1,0 +1,8 @@
+#WhiteArmor.Life: 50
+#WhiteArmor.LootId: Armor.White
+
+#BlueArmor.Life: 75
+#BlueArmor.LootId: Armor.Blue
+
+#SimpleSword.Damage = 25
+#SimpleSword.LootId = Weapon.SimpleSword

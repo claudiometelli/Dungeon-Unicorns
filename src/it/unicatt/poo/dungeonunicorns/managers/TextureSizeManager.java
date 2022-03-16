@@ -50,7 +50,7 @@ public class TextureSizeManager {
 	public static Texture resizePlayer(Texture texture) {
 		Float multiplier = null;
 		try {
-			multiplier = IOUtils.getFloatAttributeFromConfigFile(Paths.get("configfiles/ScaleConfig.txt"), "PLAYER_MULTIPLIER");
+			multiplier = IOUtils.getFloatAttribute("ScaleConfig.txt", "PLAYER_MULTIPLIER");
 		} catch (AttributeNotSpecifiedException e) {
 			System.err.println(e.getMessage());
 		}
@@ -66,7 +66,7 @@ public class TextureSizeManager {
 	public static Texture resizeMonster(Texture texture) {
 		Float multiplier = null;
 		try {
-			multiplier = IOUtils.getFloatAttributeFromConfigFile(Paths.get("configfiles/ScaleConfig.txt"), "MONSTER_MULTIPLIER");
+			multiplier = IOUtils.getFloatAttribute("ScaleConfig.txt", "MONSTER_MULTIPLIER");
 		} catch (AttributeNotSpecifiedException e) {
 			System.err.println(e.getMessage());
 		}

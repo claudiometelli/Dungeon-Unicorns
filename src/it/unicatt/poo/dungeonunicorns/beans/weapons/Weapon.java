@@ -1,5 +1,7 @@
 package it.unicatt.poo.dungeonunicorns.beans.weapons;
 
+import it.unicatt.poo.dungeonunicorns.beans.Lootable;
+
 /**
  * A class which represent a generic weapon
  * 
@@ -7,7 +9,7 @@ package it.unicatt.poo.dungeonunicorns.beans.weapons;
  * @version 1.0.0
  *
  */
-public abstract class Weapon {
+public abstract class Weapon implements Lootable {
 	
 	/**
 	 * the damage done when you attack with the weapon

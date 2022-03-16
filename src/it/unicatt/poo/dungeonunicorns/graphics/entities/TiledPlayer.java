@@ -4,7 +4,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import it.unicatt.poo.dungeonunicorns.core.EntityDirection;
+import it.unicatt.poo.dungeonunicorns.beans.enums.EntityDirection;
 import it.unicatt.poo.dungeonunicorns.core.Player;
 import it.unicatt.poo.dungeonunicorns.graphics.MainGame;
 import it.unicatt.poo.dungeonunicorns.managers.TextureSizeManager;
@@ -110,13 +110,13 @@ public class TiledPlayer extends TiledEntity {
 	public boolean moveUp() {
 		boolean result = getPlayer().canMoveUp();
 		if(!super.isMoving() && result) {
-			super.setArrivingPoint(super.getYPositionEntityArea() - MainGame.getInstance().getGameScreen().getCoordinateSize());
+			super.setArrivingPoint(super.getYPositionEntityArea() + MainGame.getInstance().getGameScreen().getCoordinateSize());
 			super.setActualDirection(EntityDirection.UP);
 			super.setMoving(true);
 		}
 		if(result) {
-			super.setYPositionEntityArea(super.getYPositionEntityArea() - MainGame.getInstance().getGameScreen().getCoordinateSize() / NUMBER_OF_ANIMATIONS_DURING_MOVEMENT);
-			if(super.getYPositionEntityArea() <= super.getArrivingPoint()) {
+			super.setYPositionEntityArea(super.getYPositionEntityArea() + MainGame.getInstance().getGameScreen().getCoordinateSize() / NUMBER_OF_ANIMATIONS_DURING_MOVEMENT);
+			if(super.getYPositionEntityArea() >= super.getArrivingPoint()) {
 				super.setYPositionEntityArea(super.getArrivingPoint());
 				super.getCoordinate().setEntity(null);
 				super.getEntity().moveUp();
@@ -132,13 +132,13 @@ public class TiledPlayer extends TiledEntity {
 	public boolean moveDown() {
 		boolean result = getPlayer().canMoveDown();
 		if(!super.isMoving() && result) {
-			super.setArrivingPoint(super.getYPositionEntityArea() + MainGame.getInstance().getGameScreen().getCoordinateSize());
+			super.setArrivingPoint(super.getYPositionEntityArea() - MainGame.getInstance().getGameScreen().getCoordinateSize());
 			super.setActualDirection(EntityDirection.DOWN);
 			super.setMoving(true);
 		}
 		if(result) {
-			super.setYPositionEntityArea(super.getYPositionEntityArea() + MainGame.getInstance().getGameScreen().getCoordinateSize() / NUMBER_OF_ANIMATIONS_DURING_MOVEMENT);
-			if(super.getYPositionEntityArea() >= super.getArrivingPoint()) {
+			super.setYPositionEntityArea(super.getYPositionEntityArea() - MainGame.getInstance().getGameScreen().getCoordinateSize() / NUMBER_OF_ANIMATIONS_DURING_MOVEMENT);
+			if(super.getYPositionEntityArea() <= super.getArrivingPoint()) {
 				super.setYPositionEntityArea(super.getArrivingPoint());
 				super.getCoordinate().setEntity(null);
 				super.getEntity().moveDown();

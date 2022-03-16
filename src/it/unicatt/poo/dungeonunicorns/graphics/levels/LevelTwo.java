@@ -7,7 +7,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
-import it.unicatt.poo.dungeonunicorns.beans.Teleporter;
+import it.unicatt.poo.dungeonunicorns.beans.teleporters.TwoWayTeleporter;
 import it.unicatt.poo.dungeonunicorns.graphics.MainGame;
 import it.unicatt.poo.dungeonunicorns.graphics.beans.TiledRoom;
 import it.unicatt.poo.dungeonunicorns.graphics.entities.TiledMonster;
@@ -31,7 +31,7 @@ public class LevelTwo extends GenericLevel {
 		TiledRoom room = new TiledRoom(assetManager.get("assets/maps/TestMap.tmx"));
 		result.add(room);
 		room.setSpawningPoint(room.getCoordinateByPosition(4, 4), MainGame.getInstance().getGameScreen().getPlayer());
-		Teleporter.createTeleporter(room.getRoom().getCoordinateByPosition(5, 4), room.getRoom().getCoordinateByPosition(9, 9));
+		TwoWayTeleporter.createTeleporter(room.getRoom().getCoordinateByPosition(5, 4), room.getRoom().getCoordinateByPosition(9, 9));
 		return result;
 	}
 

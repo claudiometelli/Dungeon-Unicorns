@@ -51,7 +51,7 @@ public class WinGameOverScreen  implements Screen {
 		}
 		music.play();
 	}
-
+	
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub

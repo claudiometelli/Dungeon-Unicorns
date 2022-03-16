@@ -1,5 +1,7 @@
 package it.unicatt.poo.dungeonunicorns.core;
 
+import it.unicatt.poo.dungeonunicorns.beans.enums.EntityDirection;
+
 /**
  * A class which represent the player
  * 
@@ -37,6 +39,41 @@ public class Player extends Entity {
 				enemy.getDamage(PLAYER_MELEE_DAMAGE_VALUE);
 			}
 			result = true;
+		}
+		return result;
+	}
+	
+	public boolean attack(EntityDirection direction) {
+		boolean result = false;
+		switch(direction) {
+			case RIGHT:
+				if(super.checkEntityRightBordering()) {
+					result = attack(super.getEntityRightBordering());
+				}
+				break;
+			case LEFT:
+				if(super.checkEntityLeftBordering()) {
+					result = attack(super.getEntityLeftBordering());
+				}
+				break;
+			case UP:
+				if(super.checkEntityUpBordering()) {
+					result = attack(super.getEntityUpBordering());
+				}
+				break;
+			case DOWN:
+				if(super.checkEntityDownBordering()) {
+					result = attack(super.getEntityDownBordering());
+				}
+				break;
+		}
+		return result;
+	}
+	
+	public boolean useTeleport() {
+		boolean result = false;
+		if(getCurrentPosition().getTeleporter() != null) {
+			result = getCurrentPosition().getTeleporter().teleport();
 		}
 		return result;
 	}

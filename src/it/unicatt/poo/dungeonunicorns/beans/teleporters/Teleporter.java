@@ -1,4 +1,6 @@
-package it.unicatt.poo.dungeonunicorns.beans;
+package it.unicatt.poo.dungeonunicorns.beans.teleporters;
+
+import it.unicatt.poo.dungeonunicorns.beans.Coordinate;
 
 /**
  * A class which represent a single teleport in the game
@@ -6,7 +8,7 @@ package it.unicatt.poo.dungeonunicorns.beans;
  * @author claudiometelli
  * @version 1.0.0
  */
-public class Teleporter {
+public abstract class Teleporter {
 	
 	/**
 	 * The coordinate on which the first teleporting point is placed
@@ -24,7 +26,7 @@ public class Teleporter {
 	 * @param teleportingPoint1 - the coordinate on which the first teleporting point is placed
 	 * @param teleportingPoint2 - the coordinate on which the second teleporting point is placed
 	 */
-	private Teleporter(Coordinate teleportingPoint1, Coordinate teleportingPoint2) {
+	public Teleporter(Coordinate teleportingPoint1, Coordinate teleportingPoint2) {
 		this.teleportingPoint1 = teleportingPoint1;
 		this.teleportingPoint2 = teleportingPoint2;
 		
@@ -37,11 +39,11 @@ public class Teleporter {
 	 * @param teleportingPoint1
 	 * @param teleportingPoint2
 	 */
-	public static void createTeleporter(Coordinate teleportingPoint1, Coordinate teleportingPoint2) {
-		Teleporter teleporter = new Teleporter(teleportingPoint1, teleportingPoint2);
-		teleporter.getTeleportingPoint1().setTeleporter(teleporter);
-		teleporter.getTeleportingPoint2().setTeleporter(teleporter);
-	}
+//	public static void createTeleporter(Coordinate teleportingPoint1, Coordinate teleportingPoint2) {
+//		Teleporter teleporter = new Teleporter(teleportingPoint1, teleportingPoint2);
+//		teleporter.getTeleportingPoint1().setTeleporter(teleporter);
+//		teleporter.getTeleportingPoint2().setTeleporter(teleporter);
+//	}
 	
 	/**
 	 * 
@@ -76,18 +78,10 @@ public class Teleporter {
 	}
 	
 	/**
-	 * teleport the entity on one of the teleporting point to the other
+	 * teleport the entity instead of what type of teleporter you take
 	 * 
 	 * @return true if you can teleport, false otherwise
 	 */
-	public boolean teleport() {
-		boolean result = false;
-		if(teleportingPoint1.getEntity() != null && teleportingPoint1.getEntity().getCurrentPosition().equals(teleportingPoint1)) {
-			result = teleportingPoint1.getEntity().moveIntoPosition(teleportingPoint2);
-		} else if (teleportingPoint2.getEntity() != null && teleportingPoint2.getEntity().getCurrentPosition().equals(teleportingPoint2)) {
-			result = teleportingPoint2.getEntity().moveIntoPosition(teleportingPoint1);
-		}
-		return result;
-	}
+	public abstract boolean teleport();
 	
 }

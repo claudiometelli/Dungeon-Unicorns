@@ -4,7 +4,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import it.unicatt.poo.dungeonunicorns.core.EntityDirection;
+import it.unicatt.poo.dungeonunicorns.beans.enums.EntityDirection;
 import it.unicatt.poo.dungeonunicorns.core.Monster;
 import it.unicatt.poo.dungeonunicorns.graphics.MainGame;
 import it.unicatt.poo.dungeonunicorns.managers.TextureSizeManager;
@@ -31,14 +31,14 @@ public class TiledMonster extends TiledEntity {
 	
 	public boolean isNextMoveMoving() {
 		boolean result = false;
-		if(!getMonster().getIntelligence().isGoingToMove().equals(EntityDirection.NO_DIRECTION)){
+		if(!getMonster().isGoingToMove().equals(EntityDirection.NO_DIRECTION)){
 			result = true;
 		}
 		return result;
 	}
 	
 	public EntityDirection nextMove() {
-		EntityDirection result = getMonster().getIntelligence().isGoingToMove();
+		EntityDirection result = getMonster().isGoingToMove();
 		if(!super.isMoving() && !result.equals(EntityDirection.NO_DIRECTION)) {
 			if(result.equals(EntityDirection.RIGHT)) {
 				super.setArrivingPoint(super.getXPositionEntityArea() + MainGame.getInstance().getGameScreen().getCoordinateSize());
@@ -51,14 +51,14 @@ public class TiledMonster extends TiledEntity {
 			}
 			super.setMoving(true);
 		} else if(!super.isMoving() && result.equals(EntityDirection.NO_DIRECTION)){
-			getMonster().getIntelligence().nextMove();
+			getMonster().nextMove();
 		}
 		if(!result.equals(EntityDirection.NO_DIRECTION)) {
 			if(result.equals(EntityDirection.RIGHT)) {
 				super.setXPositionEntityArea(super.getXPositionEntityArea() + MainGame.getInstance().getGameScreen().getCoordinateSize() / NUMBER_OF_ANIMATIONS_DURING_MOVEMENT);
 				if(super.getXPositionEntityArea() >= super.getArrivingPoint()) {
 					super.setArrivingPoint(super.getXPositionEntityArea());
-					getMonster().getIntelligence().nextMove();
+					getMonster().nextMove();
 					super.setActualDirection(EntityDirection.NO_DIRECTION);
 					super.setMoving(false);
 				}
@@ -66,23 +66,23 @@ public class TiledMonster extends TiledEntity {
 				super.setXPositionEntityArea(super.getXPositionEntityArea() - MainGame.getInstance().getGameScreen().getCoordinateSize() / NUMBER_OF_ANIMATIONS_DURING_MOVEMENT);
 				if(super.getXPositionEntityArea() <= super.getArrivingPoint()) {
 					super.setArrivingPoint(super.getXPositionEntityArea());
-					getMonster().getIntelligence().nextMove();
+					getMonster().nextMove();
 					super.setActualDirection(EntityDirection.NO_DIRECTION);
 					super.setMoving(false);
 				}
 			} else if(result.equals(EntityDirection.UP)) {
-				super.setYPositionEntityArea(super.getYPositionEntityArea() - MainGame.getInstance().getGameScreen().getCoordinateSize() / NUMBER_OF_ANIMATIONS_DURING_MOVEMENT);
-				if(super.getYPositionEntityArea() <= super.getArrivingPoint()) {
+				super.setYPositionEntityArea(super.getYPositionEntityArea() + MainGame.getInstance().getGameScreen().getCoordinateSize() / NUMBER_OF_ANIMATIONS_DURING_MOVEMENT);
+				if(super.getYPositionEntityArea() >= super.getArrivingPoint()) {
 					super.setArrivingPoint(super.getYPositionEntityArea());
-					getMonster().getIntelligence().nextMove();
+					getMonster().nextMove();
 					super.setActualDirection(EntityDirection.NO_DIRECTION);
 					super.setMoving(false);
 				}
 			} else if(result.equals(EntityDirection.DOWN)) {
-				super.setYPositionEntityArea(super.getYPositionEntityArea() + MainGame.getInstance().getGameScreen().getCoordinateSize() / NUMBER_OF_ANIMATIONS_DURING_MOVEMENT);
-				if(super.getYPositionEntityArea() >= super.getArrivingPoint()) {
+				super.setYPositionEntityArea(super.getYPositionEntityArea() - MainGame.getInstance().getGameScreen().getCoordinateSize() / NUMBER_OF_ANIMATIONS_DURING_MOVEMENT);
+				if(super.getYPositionEntityArea() <= super.getArrivingPoint()) {
 					super.setArrivingPoint(super.getYPositionEntityArea());
-					getMonster().getIntelligence().nextMove();
+					getMonster().nextMove();
 					super.setActualDirection(EntityDirection.NO_DIRECTION);
 					super.setMoving(false);
 				}

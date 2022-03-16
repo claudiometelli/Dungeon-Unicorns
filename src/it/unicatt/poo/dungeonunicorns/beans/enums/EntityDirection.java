@@ -1,4 +1,4 @@
-package it.unicatt.poo.dungeonunicorns.core;
+package it.unicatt.poo.dungeonunicorns.beans.enums;
 
 /**
  * An Enum class which represent the possible direction of an entity

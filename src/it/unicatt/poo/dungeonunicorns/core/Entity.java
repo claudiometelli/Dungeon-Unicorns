@@ -111,7 +111,13 @@ public abstract class Entity {
 	
 	@Override
 	public String toString() {
-		return entityId + "; Life: " + life + "; Position: (" + currentPosition.toString() + ")";
+		String result = null;
+		if(armor != null) {
+			result = entityId + "; Life: " + life + "; " + armor.toString() + "; Position: (" + currentPosition.toString() + ")";
+		} else {
+			result = entityId + "; Life: " + life + "; Position: (" + currentPosition.toString() + ")";
+		}
+		return result;
 	}
 	
 	/**
@@ -181,7 +187,7 @@ public abstract class Entity {
 	 * @return true if the entity has moved, false otherwise
 	 */
 	public boolean moveUp() {
-		return genericMove(0, 1);
+		return genericMove(0, -1);
 	}
 	
 	/**
@@ -190,7 +196,7 @@ public abstract class Entity {
 	 * @return true if the entity can move, false otherwise
 	 */
 	public boolean canMoveUp() {
-		return isMovementAllowed(0, 1);
+		return isMovementAllowed(0, -1);
 	}
 	
 	/**
@@ -199,7 +205,7 @@ public abstract class Entity {
 	 * @return true if the entity has moved, false otherwise
 	 */
 	public boolean moveDown() {
-		return genericMove(0, -1);
+		return genericMove(0, 1);
 	}
 	
 	/**
@@ -208,11 +214,24 @@ public abstract class Entity {
 	 * @return true if the entity can move, false otherwise
 	 */
 	public boolean canMoveDown() {
-		return isMovementAllowed(0, -1);
+		return isMovementAllowed(0, 1);
 	}
 	
 	/**
-	 * check if there is an entity on the bordering oordinates of the current position
+	 * check if the player is on a teleporter
+	 * 
+	 * @return true if the entity is on a teleporter, false otherwise
+	 */
+	public boolean isOnTeleporter() {
+		boolean result = false;
+		if(currentPosition.getTeleporter() != null) {
+			result = true;
+		}
+		return result;
+	}
+	
+	/**
+	 * check if there is an entity on the bordering coordinates of the current position
 	 * 
 	 * @return true if there is an entity bordering, false otherwise
 	 */
@@ -236,6 +255,106 @@ public abstract class Entity {
 			}
 		}
 		return entities;
+	}
+	
+	/**
+	 * 
+	 * @return the entity on the right of this entity if there is an entity, null otherwise
+	 */
+	public Entity getEntityRightBordering() {
+		Entity result = null;
+		if(checkEntityRightBordering()) {
+			result = getCurrentRoom().getCoordinateByPosition(getCurrentPosition().getX() + 1, getCurrentPosition().getY()).getEntity();
+		}
+		return result;
+	}
+	
+	/**
+	 * 
+	 * @return the entity on the left of this entity if there is an entity, null otherwise
+	 */
+	public Entity getEntityLeftBordering() {
+		Entity result = null;
+		if(checkEntityLeftBordering()) {
+			result = getCurrentRoom().getCoordinateByPosition(getCurrentPosition().getX() - 1, getCurrentPosition().getY()).getEntity();
+		}
+		return result;
+	}
+	
+	/**
+	 * 
+	 * @return the entity above this entity if there is an entity, null otherwise
+	 */
+	public Entity getEntityUpBordering() {
+		Entity result = null;
+		if(checkEntityUpBordering()) {
+			result = getCurrentRoom().getCoordinateByPosition(getCurrentPosition().getX(), getCurrentPosition().getY() - 1).getEntity();
+		}
+		return result;
+	}
+	
+	/**
+	 * 
+	 * @return the entity under this entity if there is an entity, null otherwise
+	 */
+	public Entity getEntityDownBordering() {
+		Entity result = null;
+		if(checkEntityDownBordering()) {
+			result = getCurrentRoom().getCoordinateByPosition(getCurrentPosition().getX(), getCurrentPosition().getY() + 1).getEntity();
+		}
+		return result;
+	}
+	
+	/**
+	 * check if another entity is on the right of this entity
+	 * 
+	 * @return true if there is an entity on the right, false otherwise
+	 */
+	public boolean checkEntityRightBordering() {
+		boolean result = false;
+		if(!getCurrentPosition().isRightBorder() && getCurrentRoom().getCoordinateByPosition(getCurrentPosition().getX() + 1, getCurrentPosition().getY()).getEntity() != null) {
+			result = true;
+		}
+		return result;
+	}
+	
+	/**
+	 * check if another entity is on the left of this entity
+	 * 
+	 * @return true if there is an entity on the left, false otherwise
+	 */
+	public boolean checkEntityLeftBordering() {
+		boolean result = false;
+		if(!getCurrentPosition().isLeftBorder() && getCurrentRoom().getCoordinateByPosition(getCurrentPosition().getX() - 1, getCurrentPosition().getY()).getEntity() != null) {
+			result = true;
+		}
+		return result;
+	}
+	
+	/**
+	 * check if another entity is above this entity
+	 * 
+	 * @return true if there is an entity above this one, false otherwise
+	 */
+	public boolean checkEntityUpBordering() {
+		boolean result = false;
+		if(!getCurrentPosition().isUpBorder() && getCurrentRoom().getCoordinateByPosition(getCurrentPosition().getX(), getCurrentPosition().getY() - 1).getEntity() != null) {
+			result = true;
+		}
+		return result;
+	}
+	
+	/**
+	 * check if another entity is under this entity
+	 * 
+	 * @return true if there is an entity under this one, false otherwise
+	 */
+	public boolean checkEntityDownBordering() {
+		boolean result = false;
+		if(!getCurrentPosition().isDownBorder() && getCurrentRoom().getCoordinateByPosition(getCurrentPosition().getX(), getCurrentPosition().getY() + 1).getEntity() != null) {
+			result = true;
+		}
+		return result;
 	}
 	
 	/**

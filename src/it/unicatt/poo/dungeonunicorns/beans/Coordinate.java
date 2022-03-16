@@ -1,5 +1,6 @@
 package it.unicatt.poo.dungeonunicorns.beans;
 
+import it.unicatt.poo.dungeonunicorns.beans.teleporters.Teleporter;
 import it.unicatt.poo.dungeonunicorns.core.Entity;
 
 /**
@@ -183,7 +184,7 @@ public class Coordinate {
 
 	@Override
 	public String toString() {
-		return "X: " + x + ", Y: " + y;
+		return "(X:" + x + ";Y:" + y + ")";
 	}
 
 }

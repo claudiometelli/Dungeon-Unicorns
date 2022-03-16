@@ -1,5 +1,9 @@
 package it.unicatt.poo.dungeonunicorns.beans.weapons;
 
+import it.unicatt.poo.dungeonunicorns.beans.armors.BlueArmor;
+import it.unicatt.poo.dungeonunicorns.exceptions.AttributeNotSpecifiedException;
+import it.unicatt.poo.dungeonunicorns.utils.IOUtils;
+
 /**
  * A class which represent a simple sword
  * A sword which makes the damage of SIMPLE_SWORD_DAMAGE
@@ -11,16 +15,44 @@ package it.unicatt.poo.dungeonunicorns.beans.weapons;
 public class SimpleSword extends Weapon {
 	
 	/**
-	 * the amoount of damage done by this sword
+	 * the amount of damage done by this sword
 	 */
-	private static final int SIMPLE_SWORD_DAMAGE = 20;
+	private static int SIMPLE_SWORD_DAMAGE;
+	
+	/**
+	 * Id for recognize the type of loot element
+	 */
+	private static String LOOT_ID;
+	
+	static {
+		try {
+			SIMPLE_SWORD_DAMAGE = IOUtils.getIntegerAttribute("GeneralConfig.txt", "SimpleSword.Damage");
+			LOOT_ID = IOUtils.getAttribute("GeneralConfig.txt", "SimpleSword.LootId");
+		} catch(AttributeNotSpecifiedException e) {
+			System.err.println(e.getMessage());
+		}
+	}
 	
 	/**
 	 * Constructor for SimpleSword
 	 * Sets the weaponDamage to SIMPLE_SWORD_DAMAGE
 	 */
-	public SimpleSword() {
+	private SimpleSword() {
 		super(SIMPLE_SWORD_DAMAGE);
+	}
+	
+	/**
+	 * Method to get a Simple Sword
+	 * 
+	 * @return the instance of the sword
+	 */
+	public static SimpleSword getNewSimpleSword() {
+		return new SimpleSword();
+	}
+
+	@Override
+	public String getLootId() {
+		return LOOT_ID;
 	}
 
 }

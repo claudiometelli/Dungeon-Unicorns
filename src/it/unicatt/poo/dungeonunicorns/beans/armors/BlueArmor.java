@@ -11,12 +11,12 @@ import it.unicatt.poo.dungeonunicorns.utils.IOUtils;
  *
  */
 
-public class WhiteArmor extends Armor {
+public class BlueArmor extends Armor {
 	
 	/**
 	 * initial value for armorLife
 	 */
-	private static int WHITE_ARMOR_STARTING_LIFE_VALUE; 
+	private static int BLUE_ARMOR_STARTING_LIFE_VALUE;
 	
 	/**
 	 * Id for recognize the type of loot element
@@ -25,28 +25,33 @@ public class WhiteArmor extends Armor {
 	
 	static {
 		try {
-			WHITE_ARMOR_STARTING_LIFE_VALUE = IOUtils.getIntegerAttribute("GeneralConfig.txt", "WhiteArmor.Life");
-			LOOT_ID = IOUtils.getAttribute("GeneralConfig.txt", "WhiteArmor.LootId");
+			BLUE_ARMOR_STARTING_LIFE_VALUE = IOUtils.getIntegerAttribute("GeneralConfig.txt", "BlueArmor.Life");
+			LOOT_ID = IOUtils.getAttribute("GeneralConfig.txt", "BlueArmor.LootId");
 		} catch(AttributeNotSpecifiedException e) {
 			System.err.println(e.getMessage());
 		}
 	}
-	
+
 	/**
-	 * Constructor for White Armor
-	 * Sets the starting armorLife to WHITE_ARMOR_STARTING_LIFE_VALUE
+	 * Constructor for Blue Armor
+	 * Sets the starting armorLife to BLUE_ARMOR_STARTING_LIFE_VALUE
 	 */
-	private WhiteArmor() {
-		super(WHITE_ARMOR_STARTING_LIFE_VALUE);
+	private BlueArmor() {
+		super(BLUE_ARMOR_STARTING_LIFE_VALUE);
 	}
 	
-	public static WhiteArmor getNewWhiteArmor() {
-		return new WhiteArmor();
+	/**
+	 * Method to get a Blue Armor
+	 * 
+	 * @return the instance of the armor
+	 */
+	public static BlueArmor getNewBlueArmor() {
+		return new BlueArmor();
 	}
 	
 	@Override
 	public int getStartingLife() {
-		return WHITE_ARMOR_STARTING_LIFE_VALUE;
+		return BLUE_ARMOR_STARTING_LIFE_VALUE;
 	}
 
 	@Override
