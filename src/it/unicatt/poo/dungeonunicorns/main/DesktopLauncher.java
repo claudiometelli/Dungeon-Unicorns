@@ -40,11 +40,10 @@ public class DesktopLauncher {
 	private static LwjglApplicationConfiguration configLauncher() {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		// reading file configuration from configuration  file
-		Path configFile = Paths.get(SCREEN_CONFIG_PATH);
 		try {
-			config.title = IOUtils.getAttributeFromConfigFile(configFile, "Title");;
-		    config.width = IOUtils.getIntegerAttributeFromConfigFile(configFile, "Width");
-			config.height = IOUtils.getIntegerAttributeFromConfigFile(configFile, "Height");
+			config.title = IOUtils.getAttribute(SCREEN_CONFIG_PATH, "Title");;
+		    config.width = IOUtils.getIntegerAttribute(SCREEN_CONFIG_PATH, "Width");
+			config.height = IOUtils.getIntegerAttribute(SCREEN_CONFIG_PATH, "Height");
 		} catch (AttributeNotSpecifiedException ansException) {
 			System.err.println(ansException.getMessage());
 		}

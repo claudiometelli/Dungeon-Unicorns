@@ -1,6 +1,7 @@
 package it.unicatt.poo.dungeonunicorns.beans.armors;
 
 import it.unicatt.poo.dungeonunicorns.beans.Lootable;
+import it.unicatt.poo.dungeonunicorns.managers.IdManager;
 
 /**
  * A class which represent an armor for a general entity in the game
@@ -13,9 +14,14 @@ import it.unicatt.poo.dungeonunicorns.beans.Lootable;
 public abstract class Armor implements Lootable{
 	
 	/**
+	 * Id used to recognize the armor
+	 */
+	private int id;
+	/**
 	 * Life points for the armor
 	 */
 	private int armorLife;
+	
 	
 	/**
 	 * Constructor for class Armor
@@ -24,6 +30,14 @@ public abstract class Armor implements Lootable{
 	 */
 	public Armor(int armorLife) {
 		this.armorLife = armorLife;
+		this.id = IdManager.getNewId();
+	}
+	
+	/*
+	 * @return the id of the armor
+	 */
+	public int getId() {
+		return id;
 	}
 	
 	/**
@@ -58,6 +72,18 @@ public abstract class Armor implements Lootable{
 	
 	@Override
 	public String toString() {
-		return "Armor Life: " + armorLife;
+		return "Armor Id: " + id + "; Armor Life: " + armorLife;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		boolean result = false;
+		if (obj instanceof Armor) {
+			Armor armor = (Armor) obj;
+			if(armor.getId() == id) {
+				result = true;
+			}
+		}
+		return result;
 	}
 }

@@ -4,5 +4,6 @@
 #BlueArmor.Life: 75
 #BlueArmor.LootId: Armor.Blue
 
-#SimpleSword.Damage = 25
-#SimpleSword.LootId = Weapon.SimpleSword
+#SimpleSword.Damage: 40
+#SimpleSword.LootId: Weapon.SimpleSword
+#SimpleSword.Attacks: 10

@@ -1,10 +1,9 @@
 package it.unicatt.poo.dungeonunicorns.beans;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import it.unicatt.poo.dungeonunicorns.beans.armors.Armor;
 import it.unicatt.poo.dungeonunicorns.core.Entity;
-import it.unicatt.poo.dungeonunicorns.managers.LootingManager;
 
 public class LootBox {
 	
@@ -12,32 +11,49 @@ public class LootBox {
 	private Coordinate position;
 	
 	private LootBox(List<Lootable> lootElements, Coordinate position) {
-		this.lootElements = lootElements;
+		this.lootElements = new ArrayList<Lootable>(lootElements);
 		this.position = position;
 	}
 	
-	public boolean dropLoot(Lootable loot, Entity entity) {
-		boolean result = false;
-		String lootType = LootingManager.getLootTypeFromLootId(loot.getLootId());
-		System.out.println(lootType);
-		if(lootType != null) {
-			if(lootType.equals("Armor")) {
-				LootingManager.lootChooseArmorResult(entity.getArmor(), (Armor) loot);
-			}
-		}
-//		for(Lootable lootElement : lootElements) {
-//			String lootType = getLootTypeFromLootId(lootElement.getLootId());
-//			System.out.println(lootType);
-//			if(lootType != null) {
-//				if(lootType.equals("Armor")) {
-//					LootChooseManager.lootChooseArmorResult(entity.getArmor(), (Armor) lootElement);
-//				}
-//			}
-//		}
+	public static LootBox placeLootBox(List<Lootable> lootElements, Room room, int x, int y) {
+		return placeLootBox(lootElements, room.getCoordinateByPosition(x, y));
+	}
+	
+	public static LootBox placeLootBox(List<Lootable> lootElements, Coordinate position) {
+		LootBox result = new LootBox(lootElements, position);
+		position.setLootBox(result);
 		return result;
 	}
 	
+	public boolean dropLoot(Entity entity) {
+		boolean result = false;
+		for(Lootable lootElement : new ArrayList<Lootable>(lootElements)) {
+			Lootable l = lootElement.loot(entity);
+			if(l == null) {
+				lootElements.remove(lootElement);
+			} else if(!l.getLootId().equals(lootElement.getLootId())) {
+				//The entity has looted
+				lootElements.add(lootElements.indexOf(lootElement), l);
+				lootElements.remove(lootElement);
+				if(!result) {
+					result = true;
+				}
+			}
+		}
+		return result;
+	}
 	
+	@Override
+	public String toString() {
+		String result = null;
+		StringBuilder sb = new StringBuilder("LootBox elements:\n");
+		for(Lootable lootElement : lootElements) {
+			sb.append(lootElement.toString() + "\n");
+		}
+		sb.deleteCharAt(sb.length() - 1);
+		result = sb.toString();
+		return result;
+	}
 	
 	public Coordinate getPosition() {
 		return position;

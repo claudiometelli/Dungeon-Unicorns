@@ -1,5 +1,6 @@
 package it.unicatt.poo.dungeonunicorns.core;
 
+import it.unicatt.poo.dungeonunicorns.beans.LootBox;
 import it.unicatt.poo.dungeonunicorns.beans.enums.EntityDirection;
 
 /**
@@ -19,7 +20,7 @@ public class Player extends Entity {
 	/**
 	 * the damage done with a melee attack
 	 */
-	private final static int PLAYER_MELEE_DAMAGE_VALUE = 35;
+	private final static int PLAYER_MELEE_DAMAGE_VALUE = 325;
 	
 	/**
 	 * Constructor for Player which sets the entity's life to PLAYER_LIFE_STARTING_VALUE and entity Id
@@ -34,7 +35,12 @@ public class Player extends Entity {
 		boolean result = false;
 		if(getEntitiesBordering().contains(enemy)) {
 			if(super.getWeapon() != null) {
-				enemy.getDamage(super.getWeapon().getWeaponDamage());
+				Integer attackResult = super.getWeapon().attack();
+				if(attackResult != null) {
+					enemy.getDamage(attackResult);
+				} else {
+					enemy.getDamage(PLAYER_MELEE_DAMAGE_VALUE);
+				}
 			} else {
 				enemy.getDamage(PLAYER_MELEE_DAMAGE_VALUE);
 			}
@@ -76,6 +82,21 @@ public class Player extends Entity {
 			result = getCurrentPosition().getTeleporter().teleport();
 		}
 		return result;
+	}
+	
+	public boolean LootFromBorderingLootBoxes() {
+		boolean result = false;
+		for(LootBox lootBox : super.getLootBoxsBordering()) {
+			boolean looted = lootFromLootBox(lootBox);
+			if(!result && looted) {
+				result = true;
+			}
+		}
+		return result;
+	}
+	
+	public boolean lootFromLootBox(LootBox lootBox) {
+		return lootBox.dropLoot(this);
 	}
 	
 }

@@ -36,7 +36,7 @@ public class IOUtils {
 		}
 		if (!lines.isEmpty()) {
 			for (String line : lines) {
-				if (line.substring(1, line.indexOf(":")).equalsIgnoreCase(attribute)) {
+				if (line.contains(":") && line.substring(1, line.indexOf(":")).equalsIgnoreCase(attribute)) {
 					result = line.substring(line.indexOf(":") + 1).trim();
 				}
 			}

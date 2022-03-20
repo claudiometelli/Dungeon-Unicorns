@@ -1,5 +1,7 @@
 package it.unicatt.poo.dungeonunicorns.beans.armors;
 
+import it.unicatt.poo.dungeonunicorns.beans.Lootable;
+import it.unicatt.poo.dungeonunicorns.core.Entity;
 import it.unicatt.poo.dungeonunicorns.exceptions.AttributeNotSpecifiedException;
 import it.unicatt.poo.dungeonunicorns.utils.IOUtils;
 
@@ -51,7 +53,38 @@ public class WhiteArmor extends Armor {
 
 	@Override
 	public String getLootId() {
-		return LOOT_ID;
+		return LOOT_ID + "-" + getId();
+	}
+	
+	@Override
+	public boolean isGoingToLoot(Entity entity) {
+		boolean result = false;
+		Armor entityArmor = entity.getArmor();
+		
+		if(entityArmor == null) {
+			result = true;
+		} else if(getArmorLife() > entityArmor.getArmorLife()) {
+			result = true;
+		} else if(getArmorLife() < entityArmor.getArmorLife()) {
+			result = false;
+		} else if(getArmorLife() == entityArmor.getArmorLife() && getStartingLife() > entityArmor.getStartingLife()) {
+			result = true;
+		} else if(getArmorLife() == entityArmor.getArmorLife() && getStartingLife() < entityArmor.getStartingLife()) {
+			result = false;
+		}
+		return result;
+	}
+	
+	@Override
+	public Lootable loot(Entity entity) {
+		Lootable result = null;
+		if(isGoingToLoot(entity)) {
+			result = entity.getArmor();
+			entity.setArmor(this);
+		} else {
+			result = this;
+		}
+		return result;
 	}
 
 	

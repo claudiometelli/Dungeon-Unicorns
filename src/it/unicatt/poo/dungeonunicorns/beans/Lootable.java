@@ -1,12 +1,13 @@
 package it.unicatt.poo.dungeonunicorns.beans;
 
+import it.unicatt.poo.dungeonunicorns.core.Entity;
+
 public interface Lootable {
 	
 	public String getLootId();
 	
-	public default boolean loot() {
-		boolean result = false;
-		return result;
-	}
-
+	public boolean isGoingToLoot(Entity entity);
+	
+	public Lootable loot(Entity entity);
+	
 }

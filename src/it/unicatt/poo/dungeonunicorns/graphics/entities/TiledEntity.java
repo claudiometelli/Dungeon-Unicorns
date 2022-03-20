@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Rectangle;
 import it.unicatt.poo.dungeonunicorns.beans.Coordinate;
 import it.unicatt.poo.dungeonunicorns.beans.enums.EntityDirection;
 import it.unicatt.poo.dungeonunicorns.core.Entity;
+import it.unicatt.poo.dungeonunicorns.exceptions.AttributeNotSpecifiedException;
 import it.unicatt.poo.dungeonunicorns.graphics.MainGame;
 import it.unicatt.poo.dungeonunicorns.graphics.beans.TiledCoordinate;
 import it.unicatt.poo.dungeonunicorns.graphics.beans.TiledRoom;
@@ -25,7 +26,14 @@ import it.unicatt.poo.dungeonunicorns.utils.IOUtils;
 public abstract class TiledEntity {
 	
 	final static int NUMBER_OF_ANIMATIONS_DURING_MOVEMENT = 16;
-	final static float ANIMATION_TIME = IOUtils.getInstantFloatAttributeFromConfigFile(Paths.get("configfiles/ScaleConfig.txt"), "ANIMATION_TIME");
+	static float ANIMATION_TIME = 0;
+	static {
+		try{
+			IOUtils.getFloatAttribute("configfiles/ScaleConfig.txt", "ANIMATION_TIME");
+		} catch(AttributeNotSpecifiedException e) {
+			System.err.println(e.getMessage());
+		}
+	}
 	
 	
 	private Entity entity;

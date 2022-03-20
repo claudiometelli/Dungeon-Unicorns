@@ -62,12 +62,10 @@ public class GameScreen implements Screen {
 		this.stateTime = 0f;
 		game.setGameScreen(this);
 		try {
-			Path screenConfig = Paths.get(SCREEN_CONFIG_PATH);
-			Path scaleConfig = Paths.get(SCALE_CONFIG_PATH);
-			screenWidth = IOUtils.getIntegerAttributeFromConfigFile(screenConfig, "Width");
-			screenHeight = IOUtils.getIntegerAttributeFromConfigFile(screenConfig, "Height");
-			unitScale = IOUtils.getFloatAttributeFromConfigFile(scaleConfig, "MAIN_UNIT_SCALE");
-			coordinateSize = IOUtils.getFloatAttributeFromConfigFile(scaleConfig, "BASE_TILE_UNIT") * unitScale;
+			screenWidth = IOUtils.getIntegerAttribute(SCREEN_CONFIG_PATH, "Width");
+			screenHeight = IOUtils.getIntegerAttribute(SCREEN_CONFIG_PATH, "Height");
+			unitScale = IOUtils.getFloatAttribute(SCALE_CONFIG_PATH, "MAIN_UNIT_SCALE");
+			coordinateSize = IOUtils.getFloatAttribute(SCALE_CONFIG_PATH, "BASE_TILE_UNIT") * unitScale;
 		} catch (AttributeNotSpecifiedException e) {
 			System.err.println(e.getMessage());
 		}

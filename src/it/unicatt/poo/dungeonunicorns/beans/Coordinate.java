@@ -37,9 +37,13 @@ public class Coordinate {
 	 */
 	private boolean walkable;
 	/**
-	 * A boolean used to check if the coordinate is used as teleporter
+	 * The teleporter on this coordinate, it is null if no teleporter is on the coordinate
 	 */
 	private Teleporter teleporter;
+	/**
+	 * The lootbox on this coordinate, it is null if no lootbox is on the coordinate
+	 */
+	private LootBox lootBox;
 	/**
 	 * The entity on the coordinate, it is null if no entity is on the coordinate
 	 */
@@ -89,6 +93,14 @@ public class Coordinate {
 	
 	public void setTeleporter(Teleporter teleporter) {
 		this.teleporter = teleporter;
+	}
+	
+	public LootBox getLootBox() {
+		return lootBox;
+	}
+	
+	public void setLootBox(LootBox lootBox) {
+		this.lootBox = lootBox;
 	}
 
 	public boolean isBorder() {
@@ -162,6 +174,8 @@ public class Coordinate {
 			result = entity.getEntityId().charAt(0);
 		} else if(teleporter != null) {
 			result = 'T';
+		} else if(lootBox != null) {
+			result = 'L';
 		} else if(!walkable) {
 			result = '?';
 		} else if(border) {

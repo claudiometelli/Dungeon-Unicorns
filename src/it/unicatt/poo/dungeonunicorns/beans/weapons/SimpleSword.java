@@ -1,6 +1,9 @@
 package it.unicatt.poo.dungeonunicorns.beans.weapons;
 
+import it.unicatt.poo.dungeonunicorns.beans.Lootable;
+import it.unicatt.poo.dungeonunicorns.beans.armors.Armor;
 import it.unicatt.poo.dungeonunicorns.beans.armors.BlueArmor;
+import it.unicatt.poo.dungeonunicorns.core.Entity;
 import it.unicatt.poo.dungeonunicorns.exceptions.AttributeNotSpecifiedException;
 import it.unicatt.poo.dungeonunicorns.utils.IOUtils;
 
@@ -24,6 +27,8 @@ public class SimpleSword extends Weapon {
 	 */
 	private static String LOOT_ID;
 	
+	private Integer swordAttacksLeft;
+	
 	static {
 		try {
 			SIMPLE_SWORD_DAMAGE = IOUtils.getIntegerAttribute("GeneralConfig.txt", "SimpleSword.Damage");
@@ -39,6 +44,11 @@ public class SimpleSword extends Weapon {
 	 */
 	private SimpleSword() {
 		super(SIMPLE_SWORD_DAMAGE);
+		try {
+			swordAttacksLeft = IOUtils.getIntegerAttribute("GeneralConfig.txt", "SimpleSword.Attacks");
+		} catch(AttributeNotSpecifiedException e) {
+			System.err.println(e.getMessage());
+		}
 	}
 	
 	/**
@@ -49,10 +59,44 @@ public class SimpleSword extends Weapon {
 	public static SimpleSword getNewSimpleSword() {
 		return new SimpleSword();
 	}
-
+	
+	@Override
+	public Integer attack() {
+		Integer result = null;
+		if(swordAttacksLeft > 0) {
+			swordAttacksLeft--;
+			result = SIMPLE_SWORD_DAMAGE;
+		}
+		return result;
+	}
+	
+	@Override
+	public String toString() {
+		return super.toString() + "; AttacksLeft: " + swordAttacksLeft;
+	}
+	
 	@Override
 	public String getLootId() {
 		return LOOT_ID;
+	}
+	
+	@Override
+	public boolean isGoingToLoot(Entity entity) {
+		//TODO
+		boolean result = true;
+		return result;
+	}
+	
+	@Override
+	public Lootable loot(Entity entity) {
+		Lootable result = null;
+		if(isGoingToLoot(entity)) {
+			result = entity.getWeapon();
+			entity.setWeapon(this);
+		} else {
+			result = this;
+		}
+		return result;
 	}
 
 }

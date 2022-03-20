@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.unicatt.poo.dungeonunicorns.beans.Coordinate;
+import it.unicatt.poo.dungeonunicorns.beans.LootBox;
 import it.unicatt.poo.dungeonunicorns.beans.Room;
 import it.unicatt.poo.dungeonunicorns.beans.armors.Armor;
 import it.unicatt.poo.dungeonunicorns.beans.weapons.Weapon;
@@ -111,13 +112,16 @@ public abstract class Entity {
 	
 	@Override
 	public String toString() {
-		String result = null;
+		StringBuilder result = new StringBuilder();
+		result.append(entityId + "; Life: " + life + "; ");
 		if(armor != null) {
-			result = entityId + "; Life: " + life + "; " + armor.toString() + "; Position: (" + currentPosition.toString() + ")";
-		} else {
-			result = entityId + "; Life: " + life + "; Position: (" + currentPosition.toString() + ")";
+			result.append(armor.toString() + "; ");
 		}
-		return result;
+		if(weapon != null) {
+			result.append(weapon.toString() + "; ");
+		}
+		result.append("Position: (" + currentPosition.toString() + ")");
+		return result.toString();
 	}
 	
 	/**
@@ -245,16 +249,30 @@ public abstract class Entity {
 	
 	/**
 	 * 
+	 * @return all the lootBox which are on the bordering coordinates of the current position
+	 */
+	public List<LootBox> getLootBoxsBordering() {
+		List<LootBox> result = new ArrayList<LootBox>();
+		for(Coordinate coordinate : currentRoom.getWalkableBorderingCoordinates(currentPosition)) {
+			if(coordinate.getLootBox() != null) {
+				result.add(coordinate.getLootBox());
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * 
 	 * @return all the entities which are on the bordering coordinates of the current position
 	 */
 	public List<Entity> getEntitiesBordering() {
-		List<Entity> entities = new ArrayList<Entity>();
+		List<Entity> result = new ArrayList<Entity>();
 		for(Coordinate coordinate : currentRoom.getWalkableBorderingCoordinates(currentPosition)) {
 			if(coordinate.getEntity() != null) {
-				entities.add(coordinate.getEntity());
+				result.add(coordinate.getEntity());
 			}
 		}
-		return entities;
+		return result;
 	}
 	
 	/**
