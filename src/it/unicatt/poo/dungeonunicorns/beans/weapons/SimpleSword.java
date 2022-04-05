@@ -1,9 +1,12 @@
 package it.unicatt.poo.dungeonunicorns.beans.weapons;
 
+import java.io.File;
+
 import it.unicatt.poo.dungeonunicorns.beans.Lootable;
 import it.unicatt.poo.dungeonunicorns.beans.armors.Armor;
 import it.unicatt.poo.dungeonunicorns.beans.armors.BlueArmor;
 import it.unicatt.poo.dungeonunicorns.core.Entity;
+import it.unicatt.poo.dungeonunicorns.core.support.Constants;
 import it.unicatt.poo.dungeonunicorns.exceptions.AttributeNotSpecifiedException;
 import it.unicatt.poo.dungeonunicorns.utils.IOUtils;
 
@@ -31,8 +34,8 @@ public class SimpleSword extends Weapon {
 	
 	static {
 		try {
-			SIMPLE_SWORD_DAMAGE = IOUtils.getIntegerAttribute("GeneralConfig.txt", "SimpleSword.Damage");
-			LOOT_ID = IOUtils.getAttribute("GeneralConfig.txt", "SimpleSword.LootId");
+			SIMPLE_SWORD_DAMAGE = IOUtils.getIntegerAttribute(Constants.CONFIG_DIRECTORY+File.separator+Constants.GENERAL_CONFIG_FILE_NAME, "SimpleSword.Damage");
+			LOOT_ID = IOUtils.getAttribute(Constants.CONFIG_DIRECTORY+File.separator+Constants.GENERAL_CONFIG_FILE_NAME, "SimpleSword.LootId");
 		} catch(AttributeNotSpecifiedException e) {
 			System.err.println(e.getMessage());
 		}
@@ -45,7 +48,7 @@ public class SimpleSword extends Weapon {
 	private SimpleSword() {
 		super(SIMPLE_SWORD_DAMAGE);
 		try {
-			swordAttacksLeft = IOUtils.getIntegerAttribute("GeneralConfig.txt", "SimpleSword.Attacks");
+			swordAttacksLeft = IOUtils.getIntegerAttribute(Constants.CONFIG_DIRECTORY+File.separator+Constants.GENERAL_CONFIG_FILE_NAME, "SimpleSword.Attacks");
 		} catch(AttributeNotSpecifiedException e) {
 			System.err.println(e.getMessage());
 		}

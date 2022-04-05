@@ -1,5 +1,6 @@
 package it.unicatt.poo.dungeonunicorns.graphics.entities;
 
+import java.io.File;
 import java.nio.file.Paths;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.math.Rectangle;
 import it.unicatt.poo.dungeonunicorns.beans.Coordinate;
 import it.unicatt.poo.dungeonunicorns.beans.enums.EntityDirection;
 import it.unicatt.poo.dungeonunicorns.core.Entity;
+import it.unicatt.poo.dungeonunicorns.core.support.Constants;
 import it.unicatt.poo.dungeonunicorns.exceptions.AttributeNotSpecifiedException;
 import it.unicatt.poo.dungeonunicorns.graphics.MainGame;
 import it.unicatt.poo.dungeonunicorns.graphics.beans.TiledCoordinate;
@@ -29,7 +31,7 @@ public abstract class TiledEntity {
 	static float ANIMATION_TIME = 0;
 	static {
 		try{
-			IOUtils.getFloatAttribute("configfiles/ScaleConfig.txt", "ANIMATION_TIME");
+			IOUtils.getFloatAttribute(Constants.CONFIG_DIRECTORY+File.separator+Constants.SCALE_CONFIG_FILE_NAME, "ANIMATION_TIME");
 		} catch(AttributeNotSpecifiedException e) {
 			System.err.println(e.getMessage());
 		}

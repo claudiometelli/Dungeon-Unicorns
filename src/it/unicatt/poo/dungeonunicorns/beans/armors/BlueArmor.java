@@ -1,7 +1,10 @@
 package it.unicatt.poo.dungeonunicorns.beans.armors;
 
+import java.io.File;
+
 import it.unicatt.poo.dungeonunicorns.beans.Lootable;
 import it.unicatt.poo.dungeonunicorns.core.Entity;
+import it.unicatt.poo.dungeonunicorns.core.support.Constants;
 import it.unicatt.poo.dungeonunicorns.exceptions.AttributeNotSpecifiedException;
 import it.unicatt.poo.dungeonunicorns.utils.IOUtils;
 
@@ -27,8 +30,8 @@ public class BlueArmor extends Armor {
 	
 	static {
 		try {
-			BLUE_ARMOR_STARTING_LIFE_VALUE = IOUtils.getIntegerAttribute("GeneralConfig.txt", "BlueArmor.Life");
-			LOOT_ID = IOUtils.getAttribute("GeneralConfig.txt", "BlueArmor.LootId");
+			BLUE_ARMOR_STARTING_LIFE_VALUE = IOUtils.getIntegerAttribute(Constants.CONFIG_DIRECTORY+File.separator+Constants.GENERAL_CONFIG_FILE_NAME, "BlueArmor.Life");
+			LOOT_ID = IOUtils.getAttribute(Constants.CONFIG_DIRECTORY+File.separator+Constants.GENERAL_CONFIG_FILE_NAME, "BlueArmor.LootId");
 		} catch(AttributeNotSpecifiedException e) {
 			System.err.println(e.getMessage());
 		}

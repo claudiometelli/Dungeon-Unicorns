@@ -30,7 +30,7 @@ public class IOUtils {
 		String result = null;
 		List<String> lines = new ArrayList<String>();
 		try {
-			lines = Files.readAllLines(Paths.get("configfiles/" + fileName)/*, StandardCharsets.UTF_8*/);
+			lines = Files.readAllLines(Paths.get(fileName)/*, StandardCharsets.UTF_8*/);
 		} catch (IOException ioException) {
 			System.err.println("IOException: " + ioException.getMessage());
 		}

@@ -1,5 +1,6 @@
 package it.unicatt.poo.dungeonunicorns.graphics;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import it.unicatt.poo.dungeonunicorns.beans.enums.EntityDirection;
+import it.unicatt.poo.dungeonunicorns.core.support.Constants;
 import it.unicatt.poo.dungeonunicorns.exceptions.AttributeNotSpecifiedException;
 import it.unicatt.poo.dungeonunicorns.graphics.beans.TiledRoom;
 import it.unicatt.poo.dungeonunicorns.graphics.entities.TiledMonster;
@@ -33,8 +35,8 @@ import it.unicatt.poo.dungeonunicorns.utils.IOUtils;
  */
 public class GameScreen implements Screen {
 
-	private final static String SCALE_CONFIG_PATH = "configfiles/ScaleConfig.txt";
-	private final static String SCREEN_CONFIG_PATH = "configfiles/ScreenConfig.txt";
+//	private final static String SCALE_CONFIG_PATH = "configfiles/ScaleConfig.txt";
+//	private final static String SCREEN_CONFIG_PATH = "configfiles/ScreenConfig.txt";
 
 	private final MainGame game;
 
@@ -62,10 +64,10 @@ public class GameScreen implements Screen {
 		this.stateTime = 0f;
 		game.setGameScreen(this);
 		try {
-			screenWidth = IOUtils.getIntegerAttribute(SCREEN_CONFIG_PATH, "Width");
-			screenHeight = IOUtils.getIntegerAttribute(SCREEN_CONFIG_PATH, "Height");
-			unitScale = IOUtils.getFloatAttribute(SCALE_CONFIG_PATH, "MAIN_UNIT_SCALE");
-			coordinateSize = IOUtils.getFloatAttribute(SCALE_CONFIG_PATH, "BASE_TILE_UNIT") * unitScale;
+			screenWidth = IOUtils.getIntegerAttribute(Constants.CONFIG_DIRECTORY+File.separator+Constants.SCREEN_CONFIG_FILE_NAME, "Width");
+			screenHeight = IOUtils.getIntegerAttribute(Constants.CONFIG_DIRECTORY+File.separator+Constants.SCREEN_CONFIG_FILE_NAME, "Height");
+			unitScale = IOUtils.getFloatAttribute(Constants.CONFIG_DIRECTORY+File.separator+Constants.SCALE_CONFIG_FILE_NAME, "MAIN_UNIT_SCALE");
+			coordinateSize = IOUtils.getFloatAttribute(Constants.CONFIG_DIRECTORY+File.separator+Constants.SCALE_CONFIG_FILE_NAME, "BASE_TILE_UNIT") * unitScale;
 		} catch (AttributeNotSpecifiedException e) {
 			System.err.println(e.getMessage());
 		}
